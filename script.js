@@ -625,3 +625,4 @@ document.addEventListener('DOMContentLoaded', () => {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { SAGEApp, ContactForm, Utils, LocationManager };
 }
+// End of script.js        
