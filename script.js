@@ -470,6 +470,7 @@ class ContactForm {
 
 // Initialize contact form
 document.addEventListener('DOMContentLoaded', () => {
+    window.sageApp = new SAGEApp();
     new ContactForm('.contact-form');
 });
 

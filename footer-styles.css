@@ -85,6 +85,43 @@
     color: #95a5a6;
 }
 
+.created-by {
+    margin-top: 8px;
+    font-size: 0.8rem;
+}
+
+.creator-link,
+.service-link {
+    color: #f39c12;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+    z-index: 10;
+    display: inline-block;
+    padding: 2px 4px;
+}
+
+.creator-link:hover,
+.service-link:hover,
+.creator-link:focus,
+.service-link:focus {
+    color: #e67e22;
+    text-decoration: underline;
+    outline: 2px solid #f39c12;
+    outline-offset: 2px;
+}
+
+/* Ensure mailto links are clickable on all devices */
+.footer-bottom p {
+    position: relative;
+    z-index: 1;
+}
+
+.created-by {
+    position: relative;
+    z-index: 1;
+}
+
 @media (max-width: 768px) {
     .footer-content {
         flex-direction: column;
