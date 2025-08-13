@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAGE - Sustainability Action for Green Education. Leading environmental conservation and sustainable education initiatives.">
+    <meta name="keywords" content="sustainability, environmental education, green initiatives, conservation, SAGE">
+    <meta name="author" content="SAGE Team">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="SAGE - Sustainability Action for Green Education">
+    <meta property="og:description" content="Leading the charge in environmental conservation and sustainable education">
+    <meta property="og:image" content="IMAGES/LOGO/logo.jpeg">
+    <meta property="og:url" content="https://sage-education.org">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SAGE - Sustainability Action for Green Education">
+    <meta name="twitter:description" content="Leading the charge in environmental conservation and sustainable education">
+    <meta name="twitter:image" content="IMAGES/LOGO/logo.jpeg">
+    
+    <title>SAGE - Sustainability Action for Green Education</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="what-we-do-styles.css">
+    <link rel="stylesheet" href="about-us-styles.css">
+    <link rel="stylesheet" href="main-sections-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="footer-styles.css">
+    <link rel="stylesheet" href="contact_us.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="IMAGES/LOGO/logo.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://sage-education.org">
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white p-2 rounded">
+        Skip to main content
+    </a>
+
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="IMAGES/LOGO/logo.jpeg" alt="SAGE Logo - Sustainability Action for Green Education" width="50" height="50">
+            </div>
+            
+            <ul class="nav-menu" role="menubar">
+                <li role="none">
+                    <a href="#home" class="nav-link active" role="menuitem" aria-current="page">Home</a>
+                </li>
+                <li role="none">
+                    <a href="#about" class="nav-link" role="menuitem">About Us</a>
+                </li>
+                <li role="none">
+                    <a href="#what-we-do" class="nav-link" role="menuitem">What We Do</a>
+                </li>
+                <li role="none">
+                    <a href="events.html" class="nav-link" role="menuitem">Events & Activities</a>
+                </li>
+                <li role="none">
+                    <a href="#contact" class="nav-link" role="menuitem">Contact Us</a>
+                </li>
+            </ul>
+            
+            <button class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="nav-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>SAGE</h1>
+                    <h2>Sustainability Action for Green Education</h2>
+                    <p>Leading the charge in environmental conservation and sustainable education</p>
+                    <button class="cta-btn" onclick="sageApp.scrollToSection('contact')" aria-label="Get involved with SAGE">
+                        Get Involved
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission & Vision -->
+        <section class="mission-vision" aria-labelledby="mission-vision-heading">
+            <div class="container">
+                <h2 id="mission-vision-heading" class="sr-only">Mission and Vision</h2>
+                <div class="mv-grid">
+                    <article class="mission">
+                        <h3>Our Mission</h3>
+                        <p>To create sustainable environmental solutions through education, innovation, and community engagement, fostering a greener future for generations to come.</p>
+                    </article>
+                    <article class="vision">
+                        <h3>Our Vision</h3>
+                        <p>A world where environmental consciousness is embedded in every aspect of life, creating harmonious coexistence between humanity and nature.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Slider -->
+        <section class="slider-section" aria-labelledby="slider-heading">
+            <div class="container">
+                <h2 id="slider-heading" class="sr-only">Featured Projects</h2>
+                <div class="slider-container">
+                    <div class="slider" role="region" aria-roledescription="carousel" aria-label="Featured projects">
+                        <div class="slide active" role="group" aria-roledescription="slide" aria-label="Slide 1 of 5">
+                            <img src="IMAGES/slider/slidder1.jpeg" alt="Environmental conservation project" loading="lazy">
+                            <div class="slide-content">
+                                <h3>Protecting Our Planet</h3>
+                                <p>Join us in making a difference for future generations</p>
+                            </div>
+                        </div>
+                        <div class="slide" role="group" aria-roledescription="slide" aria-label="Slide 2 of 5">
+                            <img src="IMAGES/slider/slidder2.jpeg" alt="Green education workshop" loading="lazy">
+                            <div class="slide-content">
+                                <h3>Education for Change</h3>
+                                <p>Empowering communities through sustainable knowledge</p>
+                            </div>
+                        </div>
+                        <div class="slide" role="group" aria-roledescription="slide" aria-label="Slide 3 of 5">
+                            <img src="IMAGES/slider/slidder3.jpeg" alt="Community action event" loading="lazy">
+                            <div class="slide-content">
+                                <h3>Community Action</h3>
+                                <p>Together we can create lasting environmental impact</p>
+                            </div>
+                        </div>
+                        <div class="slide" role="group" aria-roledescription="slide" aria-label="Slide 4 of 5">
+                            <img src="IMAGES/slider/slidder4.jpeg" alt="Sustainable future initiative" loading="lazy">
+                            <div class="slide-content">
+                                <h3>Sustainable Future</h3>
+                                <p>Building a greener tomorrow, today</p>
+                            </div>
+                        </div>
+                        <div class="slide" role="group" aria-roledescription="slide" aria-label="Slide 5 of 5">
+                            <img src="IMAGES/slider/slidder5.jpeg" alt="Youth leadership program" loading="lazy">
+                            <div class="slide-content">
+                                <h3>Youth Leadership</h3>
+                                <p>Young leaders driving environmental change</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="slider-btn prev" aria-label="Previous slide">
+                        <span class="fas fa-chevron-left" aria-hidden="true"></span>
+                    </button>
+                    <button class="slider-btn next" aria-label="Next slide">
+                        <span class="fas fa-chevron-right" aria-hidden="true"></span>
+                    </button>
+                    
+                    <div class="slider-dots" role="tablist" aria-label="Slides">
+                        <button class="dot active" role="tab" aria-selected="true" aria-label="Go to slide 1"></button>
+                        <button class="dot" role="tab" aria-selected="false" aria-label="Go to slide 2"></button>
+                        <button class="dot" role="tab" aria-selected="false" aria-label="Go to slide 3"></button>
+                        <button class="dot" role="tab" aria-selected="false" aria-label="Go to slide 4"></button>
+                        <button class="dot" role="tab" aria-selected="false" aria-label="Go to slide 5"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section" aria-labelledby="about-heading">
+            <div class="container">
+                <h2 id="about-heading">About Us</h2>
+                
+                <div class="intro-section">
+                    <h3>Who We Are</h3>
+                    <p>SAGE (Sustainability Action for Green Education) is a pioneering organization dedicated to environmental conservation and sustainable education. Founded on the principles of ecological stewardship and community empowerment, we work tirelessly to create innovative solutions for environmental challenges.</p>
+                </div>
+
+                <div class="team-section">
+                    <h3>Our Leadership Team</h3>
+                    <div class="team-grid">
+                        <article class="team-member">
+                            <img src="IMAGES/TEAM/president.jpg" alt="Winnie Muli, President">
+                            <h4>Winnie Muli</h4>
+                            <p class="role">President</p>
+                            <p class="description">Oversees club activities, chairs meetings, and represents the club.</p>
+                        </article>
+                        
+                        <article class="team-member">
+                            <img src="IMAGES/TEAM/vice-president.jpg" alt="Denis Waitage, Vice President">
+                            <h4>Denis Waitage</h4>
+                            <p class="role">Vice President</p>
+                            <p class="description">Assists the President and assumes duties in their absence.</p>
+                        </article>
+                        
+                        <article class="team-member">
+                            <img src="IMAGES/TEAM/secretary.jpg" alt="Lorna Chelimo, Secretary">
+                            <h4>Lorna Chelimo</h4>
+                            <p class="role">Secretary</p>
+                            <p class="description">Keeps records, minutes, and manages correspondence.</p>
+                        </article>
+                        
+                        <article class="team-member">
+                            <img src="IMAGES/TEAM/treasurer.jpg" alt="Kennedy Munyao, Treasurer">
+                            <h4>Kennedy Munyao</h4>
+                            <p class="role">Treasurer</p>
+                            <p class="description">Manages club finances and fundraising activities.</p>
+                        </article>
+                        
+                        <article class="team-member">
+                            <img src="IMAGES/TEAM/project-coordinator.jpg" alt="Brian Ngonge, Project Coordinator">
+                            <h4>Brian Ngonge</h4>
+                            <p class="role">Project Coordinator</p>
+                            <p class="description">Leads project planning and implementation.</p>
+                        </article>
+                        
+                        <article class="team-member">
+                            <img src="IMAGES/TEAM/project-coordinator.jpg" alt="Vincent Rono, Project Coordinator">
+                            <h4>Vincent Rono</h4>
+                            <p class="role">Project Coordinator</p>
+                            <p class="description">Leads project planning and implementation.</p>
+                        </article>
+                        
+                        <article class="team-member">
+                            <img src="IMAGES/TEAM/publicity-officer.jpg" alt="Rosalia Wanyonyi, Publicity Officer">
+                            <h4>Rosalia Wanyonyi</h4>
+                            <p class="role">Publicity Officer</p>
+                            <p class="description">Handles communications and promotes club activities.</p>
+                        </article>
+                        
+                        <article class="team-member">
+                            <img src="IMAGES/TEAM/publicity-officer.jpg" alt="Nicole Seda, Publicity Officer">
+                            <h4>Nicole Seda</h4>
+                            <p class="role">Publicity Officer</p>
+                            <p class="description">Handles communications and promotes club activities.</p>
+                        </article>
+                        
+                        <article class="team-member">
+                            <img src="IMAGES/TEAM/it-support.jpg" alt="Daniel Waithaka, IT Support">
+                            <h4>Daniel Waithaka</h4>
+                            <p class="role">IT Support</p>
+                            <p class="description">Provides technical support for club digital initiatives.</p>
+                        </article>
+                        
+                        <article class="team-member">
+                            <img src="IMAGES/TEAM/it-support.jpg" alt="Alex Matheka, IT Support">
+                            <h4>Alex Matheka</h4>
+                            <p class="role">IT Support</p>
+                            <p class="description">Provides technical support for club digital initiatives.</p>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="founders-section">
+                    <h3>Club Patrons</h3>
+                    <div class="founders-grid">
+                        <article class="founder">
+                            <img src="IMAGES/TEAM/patron1.jpg" alt="Dr. Eunice Marete, Club Patron">
+                            <h4>Dr. Eunice Marete</h4>
+                            <p class="role">Club Patron</p>
+                            <p>Provides guidance and ensures alignment with club policies.</p>
+                        </article>
+                        
+                        <article class="founder">
+                            <img src="IMAGES/TEAM/patron2.jpg" alt="Ms. Faith Marete, Club Patron">
+                            <h4>Ms. Faith Marete</h4>
+                            <p class="role">Club Patron</p>
+                            <p>Provides guidance and ensures alignment with club policies.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What We Do Section -->
+        <section id="what-we-do" class="what-we-do-section" aria-labelledby="what-we-do-heading">
+            <div class="container">
+                <h2 id="what-we-do-heading">What We Do</h2>
+                <p class="section-intro">Our comprehensive approach to environmental education combines hands-on learning, community engagement, and innovative solutions to create lasting impact.</p>
+                
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                        <h3>Educational Programs</h3>
+                        <p>Comprehensive sustainability education for schools, communities, and organizations.</p>
+                        <ul>
+                            <li>Interactive workshops and seminars</li>
+                            <li>Custom curriculum development</li>
+                            <li>Teacher training programs</li>
+                            <li>Online learning resources</li>
+                        </ul>
+                    </article>
+                    
+                    <article class="project-card">
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        <h3>Community Outreach</h3>
+                        <p>Engaging communities through events, campaigns, and hands-on projects.</p>
+                        <ul>
+                            <li>Tree planting initiatives</li>
+                            <li>Clean-up campaigns</li>
+                            <li>Recycling programs</li>
+                            <li>Environmental awareness events</li>
+                        </ul>
+                    </article>
+                    
+                    <article class="project-card">
+                        <i class="fas fa-leaf" aria-hidden="true"></i>
+                        <h3>Conservation Projects</h3>
+                        <p>Direct action projects that protect and restore natural environments.</p>
+                        <ul>
+                            <li>Habitat restoration</li>
+                            <li>Wildlife protection</li>
+                            <li>Sustainable agriculture</li>
+                            <li>Water conservation</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+            <div class="contact_container">
+                <h2 id="contact-heading" >Contact Us</h2>
+                <p class="section-intro">Get in touch with us to learn more about our programs, volunteer opportunities, or partnership possibilities. We're here to help create a sustainable future together.</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Get In Touch</h3>
+                        <p>We'd love to hear from you! Reach out through any of the channels below or fill out the contact form.</p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                                <div>
+                                    <strong>Address</strong>
+                                    <span>Parklands/Highridge Red Hill Rd, Off Limuru Rd, Gigiri, Nairobi, Kenya</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <i class="fas fa-phone" aria-hidden="true"></i>
+                                <div>
+                                    <strong>Phone</strong>
+                                    <a href="tel:+254700000000">+254 700 000 000</a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                                <div>
+                                    <strong>Email</strong>
+                                    <a href="mailto:info@sage-education.org">info@sage-education.org</a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <i class="fas fa-clock" aria-hidden="true"></i>
+                                <div>
+                                    <strong>Office Hours</strong>
+                                    <span>Mon - Fri: 8:00 AM - 5:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="social-media">
+                            <h4>Follow Us</h4>
+                            <div class="social-links">
+                                <a href="https://facebook.com/sageeducation" aria-label="Facebook">
+                                    <span class="fab fa-facebook-f" aria-hidden="true"></span>
+                                </a>
+                                <a href="https://twitter.com/sageeducation" aria-label="Twitter">
+                                    <span class="fab fa-twitter" aria-hidden="true"></span>
+                                </a>
+                                <a href="https://instagram.com/sageeducation" aria-label="Instagram">
+                                    <span class="fab fa-instagram" aria-hidden="true"></span>
+                                </a>
+                                <a href="https://linkedin.com/company/sageeducation" aria-label="LinkedIn">
+                                    <span class="fab fa-linkedin-in" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <h3>Send Us a Message</h3>
+                        <form id="contactForm" class="form-container" novalidate>
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required aria-required="true">
+                                <span class="error-message" aria-live="polite"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required aria-required="true">
+                                <span class="error-message" aria-live="polite"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <select id="subject" name="subject" required aria-required="true">
+                                    <option value="">Select a subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="volunteer">Volunteer Opportunities</option>
+                                    <option value="partnership">Partnership Proposal</option>
+                                    <option value="donation">Donation Information</option>
+                                    <option value="media">Media & Press</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <span class="error-message" aria-live="polite"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="5" required aria-required="true" placeholder="Tell us how we can help..."></textarea>
+                                <span class="error-message" aria-live="polite"></span>
+                            </div>
+                            
+                            <!-- Honeypot field for spam protection -->
+                            <div class="form-group honeypot" aria-hidden="true">
+                                <label for="website">Website (leave this field empty)</label>
+                                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                                Send Message
+                            </button>
+                            
+                            <div id="form-message" class="form-message" role="status" aria-live="polite"></div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Map Section -->
+                <div class="map-section">
+                    <h3>Find Us</h3>
+                    <div class="map-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7579!2d36.8000!3d-1.2500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f5a8c5e5e5e5e%3A0x5e5e5e5e5e5e5e5!2sParklands%2FHighridge%20Red%20Hill%20Rd%2C%20Off%20Limuru%20Rd%2C%20Gigiri%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1234567890123!5m2!1sen!2ske"
+                            width="900px" 
+                            height="400" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="SAGE Office Location - Parklands/Highridge Red Hill Rd, Off Limuru Rd, Gigiri, Nairobi, Kenya"
+                        >
+                        </iframe>
+                    </div>
+                    
+                    <div class="map-info-container">
+                        <div class="map-details">
+                            <h4>Location Details</h4>
+                            <p><strong>Address:</strong> Parklands/Highridge Red Hill Rd, Off Limuru Rd, Gigiri, Nairobi, Kenya</p>
+                            <p><strong>Coordinates:</strong> -1.2500, 36.8000</p>
+                        </div>
+                        
+                        <div class="map-actions">
+                            <button class="share-btn" onclick="shareLocation()" aria-label="Share location">
+                                <i class="fas fa-share-alt"></i> Share
+                            </button>
+                            <button class="copy-btn" onclick="copyLocation()" aria-label="Copy location">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        
+                        <div class="share-feedback" id="share-feedback" aria-live="polite"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>SAGE</h4>
+                    <p>Sustainability Action for Green Education - Creating a sustainable future through education and action.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#what-we-do">What We Do</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Connect With Us</h4>
+                    <div class="social-links">
+                        <a href="https://facebook.com/sageeducation" aria-label="Facebook">
+                            <span class="fab fa-facebook-f" aria-hidden="true"></span>
+                        </a>
+                        <a href="https://twitter.com/sageeducation" aria-label="Twitter">
+                            <span class="fab fa-twitter" aria-hidden="true"></span>
+                        </a>
+                        <a href="https://instagram.com/sageeducation" aria-label="Instagram">
+                            <span class="fab fa-instagram" aria-hidden="true"></span>
+                        </a>
+                        <a href="https://linkedin.com/company/sageeducation" aria-label="LinkedIn">
+                            <span class="fab fa-linkedin-in" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 SAGE - Sustainability Action for Green Education. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js" defer></script>
+</body>
+</html>
