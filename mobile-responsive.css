@@ -1,0 +1,579 @@
+Mobile Responsive CSS for Android Devices
+/* This file contains all mobile-specific optimizations */
+
+/* Base Mobile Variables */
+:root {
+    --mobile-breakpoint: 768px;
+    --tablet-breakpoint: 1024px;
+    --mobile-font-size: 14px;
+    --mobile-padding: 15px;
+    --mobile-spacing: 1rem;
+}
+
+/* Global Mobile Reset */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+    
+    body {
+        font-size: var(--mobile-font-size);
+        line-height: 1.5;
+        overflow-x: hidden;
+    }
+    
+    .container {
+        padding: 0 var(--mobile-padding);
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    /* Prevent horizontal overflow */
+    * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* Mobile Navigation - Icon Mode */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.75rem 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .nav-container {
+        padding: 0 var(--mobile-padding);
+    }
+
+    .logo img {
+        height: 40px;
+        width: auto;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        padding: 5px;
+    }
+
+    .hamburger span {
+        width: 22px;
+        height: 2px;
+        background: var(--primary-color);
+        margin: 3px 0;
+        transition: 0.3s;
+    }
+
+    /* Mobile Navigation Menu */
+    .nav-menu {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: #15cc1e;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 2rem;
+        transition: left 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        display: flex !important; /* Ensure display is flex */
+        z-index: 999;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-menu li {
+        margin: 1rem 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Mobile Navigation Links */
+    .nav-link {
+        font-size: 1.2rem;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #ffcc00;
+    }
+
+    /* Show both icons and text on mobile */
+    .nav-link::before {
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        font-size: 1.4rem;
+    }
+
+    .nav-link[href="#home"]::before {
+        content: '\f015';
+    }
+
+    .nav-link[href="#about"]::before {
+        content: '\f007';
+    }
+
+    .nav-link[href="#what-we-do"]::before {
+        content: '\f0eb';
+    }
+
+    .nav-link[href="events.html"]::before {
+        content: '\f073';
+    }
+
+    .nav-link[href="#contact"]::before {
+        content: '\f095';
+    }
+
+    /* Always show text labels on mobile */
+    .nav-link span {
+        display: inline !important;
+        margin-left: 0.5rem;
+    }
+
+    /* Hero Section - Mobile Optimized */
+    .hero {
+        height: 50vh;
+        padding: 1rem;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .hero-content {
+        padding: 0 var(--mobile-padding);
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-content h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .cta-btn {
+        font-size: 1rem;
+        padding: 12px 24px;
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+    .hero {
+        height: 40vh;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+
+    .nav-link {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+
+    .nav-link::before {
+        font-size: 1.2rem;
+    }
+}
+
+/* Content Auto-fit for Android */
+@media (max-width: 768px) {
+    /* Mission & Vision */
+    .mission-vision {
+        padding: 40px 0;
+    }
+
+    .mv-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 0 var(--mobile-padding);
+    }
+
+    .mission, .vision {
+        padding: 1rem;
+        margin: 0;
+        min-height: 200px;
+    }
+
+    .mission h3, .vision h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .mission p, .vision p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        color: #555;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Posters Grid - Mobile Pairs */
+    .posters-grid {
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+        padding: 0 var(--mobile-padding);
+        margin: 0 auto;
+        max-width: 100%;
+        justify-items: center;
+        align-items: start;
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: auto;
+        max-height: 100vh;
+        box-sizing: border-box;
+        padding-bottom: 1rem;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: thin;
+        scrollbar-color: #ccc transparent;
+        -ms-overflow-style: none; /* IE and Edge */
+        overflow-y: overlay; /* For WebKit browsers */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        scroll-snap-type: y mandatory;
+        scroll-snap-points-y: repeat(100%);
+        scroll-snap-type: y mandatory;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        /* Prevent horizontal overflow */
+        max-width: 100%;
+        box-sizing: border-box;
+        padding-bottom: 1rem;
+        /* Custom scrollbar styles */
+        scrollbar-width: thin;
+        scrollbar-color: #ccc transparent;
+        -ms-overflow-style: none; /* IE and Edge */
+        overflow-y: overlay; /* For WebKit browsers */
+        /* Smooth scrolling */
+
+        scroll-behavior: smooth;
+        /* Prevent zoom on input focus */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
+            font-size: 16px; /* Prevent zoom on input focus */
+        }
+       
+
+        /* -webkit-overflow-scrolling: touch; Smooth scrolling on iOS */
+    }
+
+    .poster-card {
+        margin: 0;
+        min-height: 100px;
+    }
+
+    .poster-card img {
+        height: 100px;
+        width: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+    }
+
+    .poster-info {
+        padding: 0.75rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        text-align: center;
+        color: #333;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        text-decoration: none;
+        color: inherit;
+
+    }
+
+    .poster-info h4 {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .poster-info p {
+        font-size: 0.8rem;
+    }
+
+    /* Image Slider */
+    .slider-section {
+        padding: 40px 0;
+    }
+
+    .slide img {
+        height: 250px;
+    }
+
+    .slide-content {
+        padding: 1rem;
+    }
+
+    .slide-content h3 {
+        font-size: 1.3rem;
+    }
+
+    .slide-content p {
+        font-size: 0.9rem;
+    }
+
+    /* About Section */
+    .about-section {
+        padding: 60px 0 40px;
+    }
+
+    .about-section h2 {
+        font-size: 2rem;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        padding: 0 var(--mobile-padding);
+    }
+
+    .team-member {
+        padding: 0.75rem;
+        margin: 0;
+        text-align: center;
+    }
+
+    .team-member img {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 0.5rem;
+    }
+
+    .team-member h4 {
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .team-member .role {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .team-member .description {
+        font-size: 0.75rem;
+        line-height: 1.3;
+    }
+
+    /* What We Do */
+    .what-we-do-section {
+        padding: 40px 0;
+    }
+
+    .what-we-do-section h2 {
+        font-size: 2rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        padding: 0 var(--mobile-padding);
+    }
+
+    .project-card {
+        padding: 0.75rem;
+        margin: 0;
+    }
+
+    .project-card i {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .project-card h3 {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .project-card p {
+        font-size: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .project-card ul {
+        font-size: 0.7rem;
+        line-height: 1.3;
+    }
+
+    /* Contact Section */
+    .contact-section {
+        padding: 40px 0;
+    }
+
+    .contact-section h2 {
+        font-size: 2rem;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contact-info, .contact-form {
+        padding: 0 var(--mobile-padding);
+    }
+
+    /* Footer */
+    .footer {
+        padding: 2rem 0 1rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .footer-section {
+        padding: 0 var(--mobile-padding);
+    }
+
+    /* Founders Grid for Mobile View */
+    .founders-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Two columns */
+        gap: 1rem; /* Space between articles */
+    }
+}
+
+/* Extra Small Devices */
+@media (max-width: 360px) {
+    :root {
+        --mobile-padding: 10px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-content h2 {
+        font-size: 1.1rem;
+    }
+
+    .slide img {
+        height: 200px;
+    }
+}
+
+/* Touch-friendly buttons */
+@media (max-width: 768px) {
+    button, .cta-btn, .submit-btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .slider-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+/* Prevent zoom on input focus */
+@media (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+        font-size: 16px;
+    }
+}
+
+/* Smooth scrolling */
+@media (max-width: 768px) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Loading states */
+@media (max-width: 768px) {
+    .loading-placeholder {
+        padding: 2rem 0;
+    }
+
+    .spinner {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Print styles for mobile */
+@media print and (max-width: 768px) {
+    .navbar, .footer, .slider-btn, .hamburger {
+        display: none;
+    }
+
+    body {
+        font-size: 12pt;
+    }
+
+    .container {
+        padding: 0;
+    }
+
+    .hero {
+        height: auto;
+        background: none;
+        color: black;
+    }
+}

@@ -1,0 +1,24 @@
+{
+  "updates": [
+    {
+      "title": "CMS System Launched",
+      "date": "2024-01-20",
+      "content": "Our new GitHub-compatible CMS is now live! You can now manage all club content including slider images, team photos, and announcements directly through GitHub. No technical knowledge required - just upload your files and the system handles the rest."
+    },
+    {
+      "title": "New Team Members Joined",
+      "date": "2024-01-15",
+      "content": "We welcome new members to our leadership team. Check out the updated team photos in the CMS. New members bring fresh perspectives and energy to our environmental initiatives."
+    },
+    {
+      "title": "Slider Images Updated",
+      "date": "2024-01-10",
+      "content": "Fresh slider images have been added to showcase our latest environmental projects and community engagement activities. These images represent our commitment to sustainable education and green initiatives."
+    },
+    {
+      "title": "GitHub Pages Integration Complete",
+      "date": "2024-01-05",
+      "content": "Our website is now fully integrated with GitHub Pages, ensuring reliable hosting and easy content management. All updates are automatically reflected across the site within minutes of uploading new content."
+    }
+  ]
+}

@@ -3,31 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAGE Events & Activities - Sustainable Action for Green Education</title>
+    <title>SAGE Events & Activities - Sustainability Action for Green Education</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="events-styles.css">
-    <link rel="stylesheet" href="poster-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/jpeg" href="IMAGES/LOGO/logo.jpeg">
+    <link rel="shortcut icon" type="image/jpeg" href="IMAGES/LOGO/logo.jpeg">
+    <meta name="description" content="Explore SAGE's events and activities focused on promoting sustainability and environmental awareness. Join us in our workshops, training sessions, and community engagement initiatives.">
+    <meta name="keywords" content="SAGE, sustainability, environmental awareness, workshops, training, community engagement, eco-friendly events, tree planting, clean-up campaigns, renewable energy, climate awareness">
+    <meta name="author" content="SAGE Team">    
+    <link rel="stylesheet" href="events-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 </head>
 <body>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-background"></div>
+        <div class="hero-background-overlay"></div>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Events & Activities</h1>
+                    <h2>Empowering Communities for a Greener Future</h2>
+                    <p>Explore our events and activities designed to inspire action and foster a sustainable lifestyle. Join us in our mission to promote sustainability and environmental awareness through engaging events and activities.</p>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#events" class="btn btn-primary">Explore Events</a>
+                    <a href="#contact" class="btn btn-secondary">Contact Us</a>
+                </div>
+                <div class="hero-scroll">
+                    <b><a style="text-decoration: none; color: green;" href="#events" class="scroll-link"><i class="fas fa-chevron-down"></i> Scroll Down</a></b>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar events-nav" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <div class="logo">
-                <img src="IMAGES/LOGO/logo.jpeg" alt="SAGE Logo">
+                <img src="IMAGES/LOGO/logo.jpeg" alt="SAGE Logo - Sustainability Action for Green Education" width="50" height="50">
             </div>
-            <ul class="nav-menu">
-                <li><a href="index.html#home" class="nav-link">Home</a></li>
-                <li><a href="index.html#about" class="nav-link">About Us</a></li>
-                <li><a href="index.html#what-we-do" class="nav-link">What We Do</a></li>
-                <li><a href="#events" class="nav-link active">Events & Activities</a></li>
-                <li><a href="index.html#contact" class="nav-link">Contact Us</a></li>
+            
+            <ul class="nav-menu" role="menubar">
+                <li role="none">
+                    <a href="index.html#home" class="nav-link" role="menuitem">Home</a>
+                </li>
+     
+                <li role="none">
+                    <a href="#events" class="nav-link active" role="menuitem" aria-current="page">Events & Activities</a>
+                </li>
+                <li role="none">
+                    <a href="index.html#contact" class="nav-link" role="menuitem">Contact Us</a>
+                </li>
             </ul>
-            <div class="hamburger">
+            
+            <button class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="nav-menu">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
     </nav>
 
@@ -35,13 +69,17 @@
     <section id="events" class="events-section">
         <div class="container">
             <h2>SAGE Events & Activities</h2>
-            <p class="section-intro">Discover our comprehensive range of events and activities designed to promote sustainability and environmental awareness across our community.</p>
+            <div class="marquee-container">
+                <p class="section-intro marquee-text">
+                    Discover our comprehensive range of events and activities designed to promote sustainable and environmental awareness across our community.
+                </p>
+            </div>
 
             <!-- Poster Gallery Section -->
             <section class="poster-gallery" aria-labelledby="poster-gallery-heading">
                 <div class="container">
-                    <h3 id="poster-gallery-heading">Event Posters</h3>
-                    <p class="section-intro">Browse through our collection of event posters and promotional materials</p>
+                    <h2 id="poster-gallery-heading">Event Posters</h2>
+                    <p class="section-intro"> <b>Browse through our collection of event posters and promotional materials</b></p>
                     
                     <div class="posters-grid">
                         <div class="poster-card">
@@ -106,7 +144,7 @@
                         <h4>Renewable Energy Training</h4>
                         <p>Comprehensive training on renewable energy sources including solar and wind power. Learn practical applications and participate in hands-on demonstrations.</p>
                         <div class="event-details">
-                            <span class="duration"><i class="fas fa-clock"></i> 1.3 hours</span>
+                            <span class="duration"><i class="fas fa-clock"></i> 4 hours</span>
                             <span class="participants"><i class="fas fa-users"></i> 7+ people</span>
                         </div>
                     </div>
@@ -116,7 +154,7 @@
                         <h4>Eco-Friendly Gardening Workshop</h4>
                         <p>Master eco-friendly gardening practices including composting, permaculture, and organic farming. Perfect for beginners and experienced gardeners alike.</p>
                         <div class="event-details">
-                            <span class="duration"><i class="fas fa-clock"></i> 1.2 hours</span>
+                            <span class="duration"><i class="fas fa-clock"></i> 1.5 hours</span>
                             <span class="participants"><i class="fas fa-users"></i> 7+ people</span>
                         </div>
                     </div>
@@ -142,7 +180,7 @@
                         <h4>Beach & Park Clean-up</h4>
                         <p>Help us keep our beaches and parks clean! Join our community clean-up campaign to remove litter and promote environmental stewardship. Supplies provided.</p>
                         <div class="event-details">
-                            <span class="duration"><i class="fas fa-clock"></i> 1 hours</span>
+                            <span class="duration"><i class="fas fa-clock"></i> 3 hours</span>
                             <span class="participants"><i class="fas fa-users"></i> 5-10 people</span>
                         </div>
                     </div>  
@@ -151,7 +189,7 @@
                         <h4>Recycling Awareness Campaign</h4>   
                         <p>Participate in our recycling awareness campaign to educate the community about proper recycling practices. Workshops, demonstrations, and informational materials provided.</p>
                         <div class="event-details"> 
-                            <span class="duration"><i class="fas fa-clock"></i> 1 hours</span>
+                            <span class="duration"><i class="fas fa-clock"></i> 2 hours</span>
                             <span class="participants"><i class="fas fa-users"></i> 7+ people</span>    
                         </div>
                     </div>  
@@ -175,7 +213,7 @@
                         <h4>Community Volunteer Day</h4>
                         <p>Join us for a day of community service and environmental stewardship. Activities include park clean-ups, tree planting, and educational workshops.</p>
                         <div class="event-details">
-                            <span class="duration"><i class="fas fa-clock"></i> 1 hour</span>
+                            <span class="duration"><i class="fas fa-clock"></i> 4 hours</span>
                             <span class="participants"><i class="fas fa-users"></i> 7+ people</span>
                         </div>
                     </div>
@@ -185,7 +223,7 @@
                         <p>Join our community forum to discuss local issues, share ideas, and build connections with
 like-minded individuals. A platform for open dialogue and collaborative problem-solving.</p>
                         <div class="event-details">
-                            <span class="duration"><i class="fas fa-clock"></i> 1.3 hours</span>
+                            <span class="duration"><i class="fas fa-clock"></i> 2 hours</span>
                             <span class="participants"><i class="fas fa-users"></i> 7+ people</span>
                         </div>
                         </div>
@@ -194,7 +232,7 @@ like-minded individuals. A platform for open dialogue and collaborative problem-
                         <h4>Awareness Campaign</h4> 
                         <p>Participate in our awareness campaign to promote environmental issues and sustainable practices. Engage with the community through workshops, discussions, and outreach activities.</p>
                         <div class="event-details">
-                            <span class="duration"><i class="fas fa-clock"></i> 1.3 hours</span>
+                            <span class="duration"><i class="fas fa-clock"></i> 3 hours</span>
                             <span class="participants"><i class="fas fa-users"></i> 7+ people</span>
                             </div>
                             </div>
@@ -203,7 +241,7 @@ like-minded individuals. A platform for open dialogue and collaborative problem-
                         <h4>Fundraising Event</h4>  
                         <p>Join us for a fundraising event to support our sustainability initiatives. Enjoy activities, food, and entertainment while contributing to a greener future.</p>
                         <div class="event-details">
-                            <span class="duration"><i class="fas fa-clock"></i> 1.3 hours</span>
+                            <span class="duration"><i class="fas fa-clock"></i> 5 hours</span>
                             <span class="participants"><i class="fas fa-users"></i> 7+ people</span>
                             </div>
                             </div>                     
@@ -220,280 +258,36 @@ like-minded individuals. A platform for open dialogue and collaborative problem-
             <div class="row">
                 <div class="col">
                     <h3>Contact Us</h3>
-                    <p>Email: <a href="mailto:
-                        info@ecosociety.org">ABOUT TO PUT EMAIL</a></p>
-                    <p>Phone: <a href="tel:+1234567890">ABOUT TO PUT PHONE</a></p>
-                    <p>Address: <a href="https://www.google.com/maps/place/Eco+S
-                        ociety/@40.7128,-74.0060,15z/data=!4m5!
-                        3m4!1s0x89c2f0c6b8ff8b1f:0x4d3c5e2a6b7c8d9!8m2!3d40.7128!4d-74.0060" target="_blank">123 Eco St, Green City, GC 12345</a></p>
+                    <p>Email: <a style="text-decoration: none;"  href="mailto:
+                        sagecluborganisation@gmail.com"> sagecluborganisation@gmail.com</a></p>
+                    <p>Phone: <a style="text-decoration: none;"  href="tel:+123456780"> +254 no. goes here</a></p>
+                    <p>Address: <a style="text-decoration: none; color : blue" href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7579!2d36.8000!3d-1.2500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f5a8c5e5e5e5e%3A0x5e5e5e5e5e5e5e5!2sParklands%2FHighridge%20Red%20Hill%20Rd%2C%20Off%20Limuru%20Rd%2C%20Gigiri%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1234567890123!5m2!1sen!2ske" target="_blank">Parklands/Highridge Red Hill Rd, Off Limuru Rd, Gigiri, Nairobi, Kenya</a></p>
 
             </div>
         </div>
-        <div class="social-icons">
+        <div class="social-icons" style="text-decoration: none; color: green;">
             <a href="https://www.facebook.com/ecosociety" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
             <a href="https://www.twitter.com/ecosociety" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
             <a href="https://www.instagram.com/ecosociety" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
             <a href="https://www.linkedin.com/company/ecosociety" target="_blank" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
             <a href="https://www.youtube.com/ecosociety" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
         </div>
-        <p class="footer-text">&copy; 2023 Eco Society. All rights reserved.</p>
+        <p class="footer-text">&copy; 2025 Sage Society. All rights reserved.</p>
     </div>
 </footer>
+<script src="event.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.counterup.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollreveal/4.0.9/scrollreveal.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.14/featherlight.min.js"></script> -->
+<script src="mobile-menu.js"></script>
     <script src="script.js"></script>
-    <script src="events-script.js"></script>
 </body> 
 </html>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-    }
-
-    .navbar {
-        background-color: #333;
-        color: white;
-        padding: 10px 20px;
-    }
-
-    .nav-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .nav-menu {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-    }
-
-    .nav-link {
-        color: white;
-        text-decoration: none;
-        padding: 10px 15px;
-    }
-
-    .nav-link.active {
-        background-color: #555;
-    }
-
-    .hamburger {
-        display: none; /* Hidden by default */
-    }
-
-    @media (max-width: 768px) {
-        .nav-menu {
-            display: none; /* Hide menu on small screens */
-            flex-direction: column;
-            position: absolute;
-            top: 60px;
-            left: 0;
-            width: 100%;
-            background-color: #333;
-        }
-        
-        .hamburger {
-            display: block; /* Show hamburger icon on small screens */
-            cursor: pointer;
-        }
-        
-        .nav-menu.active {
-            display: flex; /* Show menu when hamburger is clicked */
-        }
-    }
-    .events-section {
-        padding: 20px;
-        background-color: #fff;
-    }
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-    .events-section h2 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    .section-intro {
-        text-align: center;
-        margin-bottom: 40px;
-        font-size: 1.2em;
-        color: #666;
-    }
-    .poster-gallery {
-        margin-bottom: 40px;
-    }
-    .poster-gallery h3 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    .posters-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-    }
-    .poster-card {
-        background-color: #f9f9f9;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
-        text-align: center;
-    }
-    .poster-card img {
-        width: 100%;
-        height: auto;
-    }
-    .poster-info {
-        padding: 15px;
-    }
-    .poster-info h4 {
-        margin: 10px 0;
-        font-size: 1.2em;
-    }
-    .poster-info p {
-        color: #666;
-        font-size: 0.9em;
-    }
-    .event-category {
-        margin-bottom: 40px;
-    }
-    .event-category h3 {
-        font-size: 1.5em;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-    }
-    .event-category h3 i {
-        margin-right: 10px;
-        color: #4CAF50; /* Green icon color */
-    }
-    .events-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-    }
-    .event-card {
-        background-color: #f9f9f9;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 20px;
-        text-align: center;
-    }
-
-    .event-icon {
-        font-size: 2em;
-        color: #4CAF50; /* Green icon color */
-        margin-bottom: 10px;
-    }
-    .event-card h4 {
-        margin: 10px 0;
-        font-size: 1.2em;
-    }
-
-    .event-card p {
-        color: #666;
-        font-size: 0.9em;
-        margin-bottom: 15px;
-    }
-    .event-details {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.9em;
-        color: #999;
-    }
-    .event-details span {
-        display: flex;
-        align-items: center;
-    }
-    .event-details span i {
-        margin-right: 5px;
-        color: #4CAF50; /* Green icon color */
-    }
-    .footer {
-        background-color: #333;
-        color: white;
-        padding: 20px 0;
-        text-align: center;
-    }
-    .footer h3 {
-        margin-bottom: 10px;
-    }
-    .footer p {
-        margin: 5px 0;
-    }
-    .footer a {
-        color: #4CAF50; /* Green link color */
-        text-decoration: none;
-    }
-    .footer a:hover {
-        text-decoration: underline;
-    }
-    .social-icons {
-        margin: 20px 0;
-    }
-    .social-icon {
-        color: white;
-        margin: 0 10px;
-        font-size: 1.5em;
-        text-decoration: none;
-    }
-    .social-icon:hover {
-        color: #4CAF50; /* Green hover color */
-    }
-    .footer-text {
-        margin-top: 20px;
-        font-size: 0.8em;
-        color: #999;
-    }
-    @media (max-width: 768px) {
-        .events-grid {
-            grid-template-columns: 1fr; /* Single column on small screens */
-        }
-        .poster-gallery h3, .event-category h3 {
-            font-size: 1.2em; /* Smaller headings on small screens */
-        }
-    }
-    @media (max-width: 480px) {
-        .nav-menu {
-            flex-direction: column; /* Stack menu items vertically */
-        }
-        .nav-link {
-            padding: 10px; /* Adjust padding for smaller screens */
-        }
-        .poster-card img {
-            height: 200px; /* Fixed height for poster images on small screens */
-        }
-    }
-</style>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-
-        hamburger.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-        });
-    }); 
-</script>
-<script>    
-// Add event listeners to the social media icons
-document.addEventListener('DOMContentLoaded', function() {
-    const socialIcons = document.querySelectorAll('.social-icon');
-
-    socialIcons.forEach(icon => {
-        icon.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default link behavior
-            const url = this.getAttribute('href');
-            window.open(url, '_blank'); // Open link in a new tab
-        });
-    });
-});
-</script>
-</script>
-
 
 
 

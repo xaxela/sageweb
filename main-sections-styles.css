@@ -1,5 +1,5 @@
 /* Main Sections (Home and Contact Us) Styling with Animations */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('fonts.css');
 
 :root {
     --primary-green: #2c5530;
@@ -391,12 +391,25 @@
 
 @media screen and (max-width: 480px) {
     .contact-section h2 {
-        font-size: 2rem;
+        font-size: 1.6rem;
     }
     
     .contact-form,
     .contact-info {
-        padding: 1.5rem;
+        padding: 1rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.2rem;
+    }
+    
+    .cta-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
     }
 }
 
