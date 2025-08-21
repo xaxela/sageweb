@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE Club CMS - Admin Dashboard</title>
+    <link rel="stylesheet" href="cms-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1abc9c">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1><i class="fas fa-leaf"></i> SAGE Club CMS</h1>
+                <div class="header-actions">
+                    <button class="btn btn-refresh" onclick="refreshAllContent()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                    <button class="btn btn-primary" onclick="showAddContentModal()">
+                        <i class="fas fa-plus"></i> Add Content
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a></li>
+                <li><a href="#slider" class="nav-link" data-section="slider">
+                    <i class="fas fa-images"></i> Slider Images
+                </a></li>
+                <li><a href="#team" class="nav-link" data-section="team">
+                    <i class="fas fa-users"></i> Team Members
+                </a></li>
+                <li><a href="#patrons" class="nav-link" data-section="patrons">
+                    <i class="fas fa-star"></i> Club Patrons
+                </a></li>
+                <li><a href="#updates" class="nav-link" data-section="updates">
+                    <i class="fas fa-newspaper"></i> Updates
+                </a></li>
+                <li><a href="#settings" class="nav-link" data-section="settings">
+                    <i class="fas fa-cog"></i> Settings
+                </a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section active">
+                <h2>Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-images"></i>
+                        <h3 id="slider-count">0</h3>
+                        <p>Slider Images</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3 id="team-count">0</h3>
+                        <p>Team Members</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <h3 id="patrons-count">0</h3>
+                        <p>Club Patrons</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-newspaper"></i>
+                        <h3 id="updates-count">0</h3>
+                        <p>Updates</p>
+                    </div>
+                </div>
+                
+                <div class="recent-activity">
+                    <h3>Recent Activity</h3>
+                    <div id="activity-feed"></div>
+                </div>
+            </section>
+
+            <!-- Slider Images Section -->
+            <section id="slider-section" class="content-section">
+                <h2>Slider Images</h2>
+                <div class="section-actions">
+                    <button class="btn btn-primary" onclick="uploadSliderImage()">
+                        <i class="fas fa-upload"></i> Upload New Image
+                    </button>
+                </div>
+                <div id="slider-grid" class="media-grid"></div>
+            </section>
+
+            <!-- Team Members Section -->
+            <section id="team-section" class="content-section">
+                <h2>Team Members</h2>
+                <div class="section-actions">
+                    <button class="btn btn-primary" onclick="addTeamMember()">
+                        <i class="fas fa-user-plus"></i> Add Team Member
+                    </button>
+                </div>
+                <div id="team-grid" class="media-grid"></div>
+            </section>
+
+            <!-- Club Patrons Section -->
+            <section id="patrons-section" class="content-section">
+                <h2>Club Patrons</h2>
+                <div class="section-actions">
+                    <button class="btn btn-primary" onclick="addPatron()">
+                        <i class="fas fa-plus"></i> Add Patron
+                    </button>
+                </div>
+                <div id="patrons-grid" class="media-grid"></div>
+            </section>
+
+            <!-- Updates Section -->
+            <section id="updates-section" class="content-section">
+                <h2>Updates & Announcements</h2>
+                <div class="section-actions">
+                    <button class="btn btn-primary" onclick="addUpdate()">
+                        <i class="fas fa-plus"></i> Add Update
+                    </button>
+                </div>
+                <div id="updates-list"></div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings-section" class="content-section">
+                <h2>Settings</h2>
+                <div class="settings-grid">
+                    <div class="setting-group">
+                        <h3>Repository Settings</h3>
+                        <label>GitHub Username:</label>
+                        <input type="text" id="github-owner" placeholder="your-username">
+                        <label>Repository Name:</label>
+                        <input type="text" id="github-repo" placeholder="your-repo">
+                        <label>Branch:</label>
+                        <input type="text" id="github-branch" value="main">
+                        <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+                    </div>
+                    <div class="setting-group">
+                        <h3>Content Paths</h3>
+                        <label>Slider Images:</label>
+                        <input type="text" id="slider-path" value="../IMAGES/slider/">
+                        <label>Team Photos:</label>
+                        <input type="text" id="team-path" value="../IMAGES/TEAM/">
+                        <label>Updates JSON:</label>
+                        <input type="text" id="updates-path" value="../UPDATES/updates.json">
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Upload Modal -->
+        <div id="upload-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('upload-modal')">&times;</span>
+                <h3>Upload Image</h3>
+                <form id="upload-form">
+                    <input type="file" id="file-input" accept="image/*" required>
+                    <input type="text" id="image-title" placeholder="Image Title" required>
+                    <textarea id="image-description" placeholder="Description"></textarea>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="loading-overlay hidden">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="dashboard.js"></script>
+    <script src="media-manager.js"></script>
+    <script src="content-editor.js"></script>
+    <script src="auth.js"></script>
+    <script src="sw.js"></script>
+</body>
+</html>
