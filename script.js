@@ -397,12 +397,23 @@ class ContactForm {
         const formData = new FormData(this.form);
         const data = Object.fromEntries(formData);
         
+        // Show loading state
+        const submitBtn = this.form.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+        
         try {
             await this.submitForm(data);
             this.showSuccess();
             this.form.reset();
         } catch (error) {
             this.showError(error.message);
+        } finally {
+            // Remove loading state
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
         }
     }
 
@@ -421,16 +432,39 @@ class ContactForm {
     }
 
     async submitForm(data) {
-        // Simulate API call
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                if (Math.random() > 0.1) { // 90% success rate
-                    resolve({ success: true });
-                } else {
-                    reject(new Error('Network error. Please try again.'));
-                }
-            }, 1500);
-        });
+        // Send email using EmailJS
+        try {
+            // Check if EmailJS is loaded
+            if (typeof emailjs === 'undefined') {
+                throw new Error('Email service not available. Please try again later.');
+            }
+
+            // Prepare email parameters
+            const templateParams = {
+                from_name: data.name,
+                from_email: data.email,
+                subject: data.subject || 'General Inquiry',
+                message: data.message,
+                to_email: 'sagecluborganisation@gmail.com'
+            };
+
+            // Send email using EmailJS
+            const response = await emailjs.send(
+                'service_v01pll7', 
+                'template_rfc0wxo', 
+                templateParams,
+                'O7k1qDDP2avoMEPR4' 
+            );
+
+            if (response.status === 200) {
+                return { success: true, message: 'Email sent successfully' };
+            } else {
+                throw new Error('Failed to send email. Please try again.');
+            }
+        } catch (error) {
+            console.error('Email sending error:', error);
+            throw new Error(error.message || 'Failed to send email. Please try again.');
+        }
     }
 
     showSuccess() {
@@ -439,15 +473,82 @@ class ContactForm {
         successMessage.style.cssText = `
             background: #2ecc71;
             color: white;
-            padding: 1rem;
-            border-radius: 5px;
+            padding: 1.5rem;
+            border-radius: 8px;
             margin: 1rem 0;
             text-align: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+            position: relative;
+            overflow: hidden;
         `;
-        successMessage.textContent = 'Thank you! Your message has been sent successfully.';
+        
+        // Create emoji animation container
+        const emojiContainer = document.createElement('div');
+        emojiContainer.style.cssText = `
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            animation: bounce 1s ease infinite;
+        `;
+        emojiContainer.textContent = '🎉';
+        
+        // Create message text
+        const messageText = document.createElement('div');
+        messageText.textContent = 'Email sent successfully!';
+        messageText.style.marginBottom = '0.5rem';
+        
+        // Create thank you text
+        const thankYouText = document.createElement('div');
+        thankYouText.textContent = 'Thank you for your message!';
+        thankYouText.style.fontSize = '0.9rem';
+        thankYouText.style.opacity = '0.9';
+        
+        // Add CSS animation for the emoji
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% {
+                    transform: translateY(0);
+                }
+                40% {
+                    transform: translateY(-10px);
+                }
+                60% {
+                    transform: translateY(-5px);
+                }
+            }
+            
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .success-message {
+                animation: fadeInUp 0.5s ease-out;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Assemble the success message
+        successMessage.appendChild(emojiContainer);
+        successMessage.appendChild(messageText);
+        successMessage.appendChild(thankYouText);
         
         this.form.insertAdjacentElement('beforebegin', successMessage);
-        setTimeout(() => successMessage.remove(), 5000);
+        
+        // Auto-remove after 5 seconds with fade out animation
+        setTimeout(() => {
+            successMessage.style.transition = 'opacity 0.5s ease-out';
+            successMessage.style.opacity = '0';
+            setTimeout(() => successMessage.remove(), 500);
+        }, 5000);
     }
 
     showError(message) {
@@ -471,7 +572,7 @@ class ContactForm {
 // Initialize contact form
 document.addEventListener('DOMContentLoaded', () => {
     window.sageApp = new SAGEApp();
-    new ContactForm('.contact-form');
+    new ContactForm('#contactForm');
 });
 
 // Utility functions
