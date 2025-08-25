@@ -1,81 +1,30 @@
-// SAGE Club CMS - Content Editor for Updates
+// SAGE Club CMS Content Editor
+// Handles updates and announcements management
 
 class ContentEditor {
     constructor() {
         this.updates = [];
-        this.currentEditIndex = -1;
+        this.currentEditIndex = null;
         this.init();
     }
 
     init() {
-        this.setupEditor();
+        this.setupEventListeners();
         this.loadUpdates();
     }
 
-    setupEditor() {
-        // Create rich text editor container
-        const editorContainer = document.createElement('div');
-        editorContainer.id = 'content-editor';
-        editorContainer.className = 'hidden';
-        editorContainer.innerHTML = `
-            <div class="editor-header">
-                <h3>Content Editor</h3>
-                <button class="btn btn-secondary" onclick="contentEditor.closeEditor()">
-                    <i class="fas fa-times"></i> Close
-                </button>
-            </div>
-            <div class="editor-body">
-                <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" id="update-title" placeholder="Update title..." required>
-                </div>
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="date" id="update-date" required>
-                </div>
-                <div class="form-group">
-                    <label>Content</label>
-                    <div id="editor-toolbar">
-                        <button type="button" onclick="contentEditor.formatText('bold')">
-                            <i class="fas fa-bold"></i>
-                        </button>
-                        <button type="button" onclick="contentEditor.formatText('italic')">
-                            <i class="fas fa-italic"></i>
-                        </button>
-                        <button type="button" onclick="contentEditor.formatText('underline')">
-                            <i class="fas fa-underline"></i>
-                        </button>
-                        <button type="button" onclick="contentEditor.insertList('ul')">
-                            <i class="fas fa-list-ul"></i>
-                        </button>
-                        <button type="button" onclick="contentEditor.insertList('ol')">
-                            <i class="fas fa-list-ol"></i>
-                        </button>
-                        <button type="button" onclick="contentEditor.insertLink()">
-                            <i class="fas fa-link"></i>
-                        </button>
-                    </div>
-                    <div id="editor-content" contenteditable="true" class="editor-content"></div>
-                </div>
-                <div class="editor-actions">
-                    <button class="btn btn-primary" onclick="contentEditor.saveUpdate()">
-                        <i class="fas fa-save"></i> Save Update
-                    </button>
-                    <button class="btn btn-secondary" onclick="contentEditor.previewUpdate()">
-                        <i class="fas fa-eye"></i> Preview
-                    </button>
-                </div>
-            </div>
-            <div id="editor-preview" class="hidden">
-                <h4>Preview</h4>
-                <div id="preview-content"></div>
-            </div>
-        `;
-        
-        document.body.appendChild(editorContainer);
-        
-        // Set today's date as default
-        document.getElementById('update-date').value = new Date().toISOString().split('T')[0];
+    setupEventListeners() {
+        // Add update button
+        const addUpdateBtn = document.querySelector('[onclick="addUpdate()"]');
+        if (addUpdateBtn) {
+            addUpdateBtn.onclick = this.showAddUpdateModal.bind(this);
+        }
+
+        // Modal form submission
+        const updateForm = document.getElementById('update-form');
+        if (updateForm) {
+            updateForm.addEventListener('submit', this.handleUpdateSubmit.bind(this));
+        }
     }
 
     async loadUpdates() {
@@ -86,303 +35,309 @@ class ContentEditor {
                 this.updates = data.updates || [];
             }
         } catch (error) {
-            console.log('Using sample updates');
-            this.updates = [
-                {
-                    title: "Welcome to our new CMS!",
-                    date: new Date().toISOString().split('T')[0],
-                    content: "Our new content management system is now live."
-                }
-            ];
+            console.log('No updates.json found, using empty array');
+            this.updates = [];
+        }
+        
+        this.displayUpdates();
+    }
+
+    displayUpdates() {
+        const container = document.getElementById('updates-list');
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        if (this.updates.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-newspaper" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+                    <h3>No Updates Yet</h3>
+                    <p>Start by adding your first update or announcement.</p>
+                    <button class="btn btn-primary" onclick="contentEditor.showAddUpdateModal()">
+                        <i class="fas fa-plus"></i> Add First Update
+                    </button>
+                </div>
+            `;
+            return;
+        }
+
+        this.updates.forEach((update, index) => {
+            const updateItem = document.createElement('div');
+            updateItem.className = 'update-item fade-in';
+            updateItem.innerHTML = `
+                <div class="update-header">
+                    <h3>${this.escapeHtml(update.title)}</h3>
+                    <span class="update-date">${new Date(update.date).toLocaleDateString()}</span>
+                </div>
+                <div class="update-content">
+                    <p>${this.escapeHtml(update.content)}</p>
+                </div>
+                <div class="update-actions">
+                    <button class="btn btn-secondary" onclick="contentEditor.editUpdate(${index})">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="btn btn-danger" onclick="contentEditor.deleteUpdate(${index})">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            `;
+            container.appendChild(updateItem);
+        });
+    }
+
+    showAddUpdateModal() {
+        this.currentEditIndex = null;
+        this.openUpdateModal();
+    }
+
+    openUpdateModal(update = null) {
+        let modal = document.getElementById('update-modal');
+        
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'update-modal';
+            modal.className = 'modal hidden';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close" onclick="contentEditor.closeModal('update-modal')">&times;</span>
+                    <h3>${update ? 'Edit Update' : 'Add New Update'}</h3>
+                    <form id="update-form">
+                        <div class="form-group">
+                            <label for="update-title">Title *</label>
+                            <input type="text" id="update-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-date">Date *</label>
+                            <input type="date" id="update-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-content">Content *</label>
+                            <textarea id="update-content" rows="6" required></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="contentEditor.closeModal('update-modal')">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                ${update ? 'Save Changes' : 'Add Update'}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            const form = document.getElementById('update-form');
+            form.addEventListener('submit', this.handleUpdateSubmit.bind(this));
+        }
+
+        // Set current date as default if adding new update
+        if (!update) {
+            document.getElementById('update-date').value = new Date().toISOString().split('T')[0];
+        } else {
+            document.getElementById('update-title').value = update.title;
+            document.getElementById('update-date').value = update.date;
+            document.getElementById('update-content').value = update.content;
+        }
+
+        modal.classList.remove('hidden');
+        document.getElementById('update-title').focus();
+    }
+
+    async handleUpdateSubmit(e) {
+        e.preventDefault();
+        
+        const title = document.getElementById('update-title').value.trim();
+        const date = document.getElementById('update-date').value;
+        const content = document.getElementById('update-content').value.trim();
+
+        if (!title || !date || !content) {
+            alert('Please fill in all required fields');
+            return;
+        }
+
+        const updateData = { title, date, content };
+
+        try {
+            if (this.currentEditIndex !== null) {
+                // Editing existing update
+                this.updates[this.currentEditIndex] = updateData;
+            } else {
+                // Adding new update
+                this.updates.unshift(updateData); // Add to beginning
+            }
+
+            await this.saveUpdates();
+            this.closeModal('update-modal');
+            this.displayUpdates();
+            
+            alert(`Update ${this.currentEditIndex !== null ? 'updated' : 'added'} successfully!`);
+            
+        } catch (error) {
+            console.error('Error saving update:', error);
+            alert('Error saving update. Please try again.');
         }
     }
 
-    addUpdate() {
-        this.currentEditIndex = -1;
-        this.openEditor();
+    async saveUpdates() {
+        // In a real implementation, this would save to a file or database
+        // For now, we'll use localStorage as a temporary solution
+        localStorage.setItem('sage-updates', JSON.stringify({
+            updates: this.updates,
+            lastUpdated: new Date().toISOString()
+        }));
+
+        // Simulate API call delay
+        return new Promise(resolve => setTimeout(resolve, 500));
     }
 
     editUpdate(index) {
         this.currentEditIndex = index;
-        const update = this.updates[index];
-        
-        document.getElementById('update-title').value = update.title;
-        document.getElementById('update-date').value = update.date;
-        document.getElementById('editor-content').innerHTML = this.htmlToContent(update.content);
-        
-        this.openEditor();
+        this.openUpdateModal(this.updates[index]);
     }
 
-    deleteUpdate(index) {
-        if (confirm('Are you sure you want to delete this update?')) {
-            this.updates.splice(index, 1);
-            this.saveUpdates();
-            this.refreshUpdatesList();
-        }
-    }
-
-    openEditor() {
-        document.getElementById('content-editor').classList.remove('hidden');
-    }
-
-    closeEditor() {
-        document.getElementById('content-editor').classList.add('hidden');
-        this.clearEditor();
-    }
-
-    clearEditor() {
-        document.getElementById('update-title').value = '';
-        document.getElementById('update-date').value = new Date().toISOString().split('T')[0];
-        document.getElementById('editor-content').innerHTML = '';
-        document.getElementById('editor-preview').classList.add('hidden');
-    }
-
-    formatText(command) {
-        document.execCommand(command, false, null);
-        document.getElementById('editor-content').focus();
-    }
-
-    insertList(type) {
-        const listType = type === 'ul' ? 'insertUnorderedList' : 'insertOrderedList';
-        document.execCommand(listType, false, null);
-    }
-
-    insertLink() {
-        const url = prompt('Enter URL:');
-        if (url) {
-            document.execCommand('createLink', false, url);
-        }
-    }
-
-    previewUpdate() {
-        const title = document.getElementById('update-title').value;
-        const date = document.getElementById('update-date').value;
-        const content = document.getElementById('editor-content').innerHTML;
-        
-        const preview = document.getElementById('preview-content');
-        preview.innerHTML = `
-            <h3>${title}</h3>
-            <p class="date">${new Date(date).toLocaleDateString()}</p>
-            <div class="content">${content}</div>
-        `;
-        
-        document.getElementById('editor-preview').classList.remove('hidden');
-    }
-
-    saveUpdate() {
-        const title = document.getElementById('update-title').value.trim();
-        const date = document.getElementById('update-date').value;
-        const content = this.contentToHtml(document.getElementById('editor-content').innerHTML);
-        
-        if (!title || !date || !content) {
-            alert('Please fill in all fields');
+    async deleteUpdate(index) {
+        if (!confirm('Are you sure you want to delete this update? This action cannot be undone.')) {
             return;
         }
-        
-        const update = {
-            title,
-            date,
-            content: this.stripHtml(content)
-        };
-        
-        if (this.currentEditIndex >= 0) {
-            this.updates[this.currentEditIndex] = update;
-        } else {
-            this.updates.unshift(update);
+
+        try {
+            this.updates.splice(index, 1);
+            await this.saveUpdates();
+            this.displayUpdates();
+            alert('Update deleted successfully!');
+        } catch (error) {
+            console.error('Error deleting update:', error);
+            alert('Error deleting update. Please try again.');
+        }
+    }
+
+    closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.add('hidden');
         }
         
-        this.saveUpdates();
-        this.closeEditor();
-        this.refreshUpdatesList();
-    }
-
-    contentToHtml(content) {
-        // Clean up content for storage
-        return content
-            .replace(/<div>/g, '\n')
-            .replace(/<\/div>/g, '')
-            .replace(/<br>/g, '\n')
-            .trim();
-    }
-
-    htmlToContent(html) {
-        // Convert plain text to HTML for editor
-        return html
-            .replace(/\n/g, '<br>')
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>');
-    }
-
-    stripHtml(html) {
-        // Remove HTML tags for plain text storage
-        const tmp = document.createElement('div');
-        tmp.innerHTML = html;
-        return tmp.textContent || tmp.innerText || '';
-    }
-
-    async saveUpdates() {
-        const updatesData = {
-            updates: this.updates
-        };
-        
-        // Generate JSON file content
-        const jsonContent = JSON.stringify(updatesData, null, 2);
-        
-        // Create download link for updates.json
-        const blob = new Blob([jsonContent], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        
-        // Create instructions for manual upload
-        const instructions = `
-            <h3>Save Updates to Repository</h3>
-            <p>To save your changes to the repository:</p>
-            <ol>
-                <li>Download the updated <strong>updates.json</strong> file below</li>
-                <li>Replace the existing file in your <strong>UPDATES/</strong> folder</li>
-                <li>Commit and push the changes to GitHub</li>
-                <li>Wait 2-3 minutes for GitHub Pages to update</li>
-            </ol>
-            <a href="${url}" download="updates.json" class="btn btn-primary">
-                <i class="fas fa-download"></i> Download updates.json
-            </a>
-        `;
-        
-        this.showInstructionsModal(instructions);
-    }
-
-    showInstructionsModal(instructions) {
-        const modal = document.createElement('div');
-        modal.className = 'modal';
-        modal.innerHTML = `
-            <div class="modal-content">
-                <span class="close" onclick="this.parentElement.remove()">&times;</span>
-                ${instructions}
-            </div>
-        `;
-        
-        document.body.appendChild(modal);
-        modal.style.display = 'flex';
-    }
-
-    refreshUpdatesList() {
-        // Refresh the updates list in the dashboard
-        if (window.cms) {
-            window.cms.loadUpdates();
+        // Reset form
+        const form = document.getElementById('update-form');
+        if (form) {
+            form.reset();
         }
+        
+        this.currentEditIndex = null;
+    }
+
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Utility methods for external access
+    getUpdatesCount() {
+        return this.updates.length;
+    }
+
+    getRecentUpdates(limit = 5) {
+        return this.updates.slice(0, limit);
     }
 }
 
 // Initialize Content Editor
 const contentEditor = new ContentEditor();
 
-// Global functions for updates
+// Global functions
 function addUpdate() {
-    contentEditor.addUpdate();
+    contentEditor.showAddUpdateModal();
 }
 
-// CSS for content editor
-const editorStyles = `
-<style>
-#content-editor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+// Add CSS for update items
+const updateStyles = `
+.update-item {
     background: white;
-    z-index: 3000;
-    display: flex;
-    flex-direction: column;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
 }
 
-.editor-header {
+.update-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.update-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid var(--border-color);
-    background: var(--light-gray);
+    align-items: flex-start;
+    margin-bottom: 1rem;
 }
 
-.editor-body {
+.update-header h3 {
+    color: #2c3e50;
+    margin: 0;
     flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
-    max-width: 800px;
-    margin: 0 auto;
-    width: 100%;
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
+.update-date {
+    color: #6c757d;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    margin-left: 1rem;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--secondary-color);
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    font-size: 1rem;
-}
-
-#editor-toolbar {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    background: var(--light-gray);
-    border-radius: var(--border-radius);
-}
-
-#editor-toolbar button {
-    padding: 0.5rem;
-    border: none;
-    background: white;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-#editor-toolbar button:hover {
-    background: var(--primary-color);
-    color: white;
-}
-
-.editor-content {
-    min-height: 200px;
-    padding: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    font-size: 1rem;
+.update-content {
+    color: #343a40;
     line-height: 1.6;
 }
 
-.editor-actions {
+.update-actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #6c757d;
+}
+
+.empty-state h3 {
+    margin-bottom: 0.5rem;
+    color: #343a40;
+}
+
+.form-actions {
     display: flex;
     gap: 1rem;
-    margin-top: 2rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
 }
 
-#editor-preview {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background: var(--light-gray);
-    border-radius: var(--border-radius);
+@media (max-width: 768px) {
+    .update-header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .update-date {
+        margin-left: 0;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-actions button {
+        width: 100%;
+    }
 }
-
-#editor-preview h4 {
-    margin-bottom: 1rem;
-    color: var(--secondary-color);
-}
-</style>
 `;
 
-document.head.insertAdjacentHTML('beforeend', editorStyles);
+// Inject styles
+const styleSheet = document.createElement('style');
+styleSheet.textContent = updateStyles;
+document.head.appendChild(styleSheet);

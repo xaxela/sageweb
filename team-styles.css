@@ -1,9 +1,9 @@
 
 .team-member img {
-    width: 150px;
-    height: 150px;
-    border-radius: 20%;
-    object-fit: cover;
+    width: 150px; /* Adjusted width */
+    height: 150px; /* Adjusted height */
+    border-radius: 50%; /* Changed to 50% for circular images */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
     margin-bottom: 10px;
     border: 3px solid #16441c;
 }
@@ -41,9 +41,7 @@
     justify-content: center;
     gap: 40px;
     margin-bottom: 50px;
-}
-.team-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -88,8 +86,6 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 50px;
-}
-.founder-container {
     max-width: 1400px;
     margin: 0 auto;
 }

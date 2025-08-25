@@ -1,5 +1,3 @@
-// SAGE Club CMS Dashboard - Main Functionality
-
 class CMSDashboard {
     constructor() {
         this.config = {

@@ -1,0 +1,73 @@
+{
+  "name": "SAGE Club CMS",
+  "short_name": "SAGE CMS",
+  "description": "Content Management System for SAGE Club website",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1abc9c",
+  "theme_color": "#1abc9c",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "../IMAGES/LOGO/logo.jpeg",
+      "sizes": "72x72",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "../IMAGES/LOGO/logo.jpeg",
+      "sizes": "96x96",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "../IMAGES/LOGO/logo.jpeg",
+      "sizes": "128x128",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "../IMAGES/LOGO/logo.jpeg",
+      "sizes": "144x144",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "../IMAGES/LOGO/logo.jpeg",
+      "sizes": "152x152",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "../IMAGES/LOGO/logo.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "../IMAGES/LOGO/logo.jpeg",
+      "sizes": "384x384",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "../IMAGES/LOGO/logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "./",
+  "screenshots": [
+    {
+      "src": "../IMAGES/slider/slidder1.jpeg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "label": "SAGE CMS Dashboard"
+    }
+  ],
+  "features": [
+    "Offline functionality",
+    "Content management",
+    "Image upload",
+    "Real-time updates",
+    "Responsive design"
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

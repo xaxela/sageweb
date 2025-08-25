@@ -38,6 +38,9 @@
     <link rel="stylesheet" href="slider-styles.css">
     <link rel="stylesheet" href="mobile-responsive.css">
     <link rel="stylesheet" href="team-styles.css">
+    <link rel="stylesheet" href="mission-vision-styles.css">
+    <link rel="stylesheet" href="onload-animation/loader.css">
+  
     
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="IMAGES/LOGO/logo.jpeg">
@@ -47,6 +50,14 @@
     <link rel="canonical" href="https://sage-education.org">
 </head>
 <body>
+    <!-- Onload Animation Loader -->
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p>Loading SAGE Website...</p>
+        </div>
+    </div>
+
     <!-- Skip to main content link for accessibility -->
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white p-2 rounded">
         Skip to main content
@@ -212,7 +223,7 @@
                         </article>
                         
                         <article class="team-member">
-                            <img src="IMAGES/TEAM/secretary.jpg" alt="Lorna Chelimo, Secretary">
+                            <img src="IMAGES/TEAM/lorna.jpg" alt="Lorna Chelimo, Secretary">
                             <h4>Lorna Chelimo</h4>
                             <p class="role">Secretary</p>
                             <p class="description">Keeps records, minutes, and manages correspondence.</p>
@@ -226,21 +237,21 @@
                         </article>
                         
                         <article class="team-member">
-                            <img src="IMAGES/TEAM/project-coordinator.jpg" alt="Brian Ngonge, Project Coordinator">
+                            <img src="IMAGES/TEAM/brian.jpg" alt="Brian Ngonge, Project Coordinator">
                             <h4>Brian Ngonge</h4>
                             <p class="role">Project Coordinator</p>
                             <p class="description">Leads project planning and implementation.</p>
                         </article>
                         
                         <article class="team-member">
-                            <img src="IMAGES/TEAM/project-coordinator.jpg" alt="Vincent Rono, Project Coordinator">
+                            <img src="IMAGES/TEAM/vini.jpg" alt="Vincent Rono, Project Coordinator">
                             <h4>Vincent Rono</h4>
                             <p class="role">Project Coordinator</p>
                             <p class="description">Leads project planning and implementation.</p>
                         </article>
                         
                         <article class="team-member">
-                            <img src="IMAGES/TEAM/publicity-officer.jpg" alt="Rosalia Wanyonyi, Publicity Officer">
+                            <img src="IMAGES/TEAM/rose.jpg" alt="Rosalia Wanyonyi, Publicity Officer">
                             <h4>Rosalia Wanyonyi</h4>
                             <p class="role">Publicity Officer</p>
                             <p class="description">Handles communications and promotes club activities.</p>
@@ -360,7 +371,7 @@
                                 <i class="fas fa-phone" aria-hidden="true"></i>
                                 <div>
                                     <strong>Phone</strong>
-                                    <a href="tel:+254700000000">+254 700 000 000</a>
+                                    <a href="tel:+254700000000">+254 742 101320</a>
                                 </div>
                             </div>
                             
@@ -562,6 +573,11 @@
     
     <script src="mobile-menu.js" defer></script>
     <script src="email-config.js"></script>
+    <script src="form-validation.js" defer></script>
+    <script src="lazy-load.js" defer></script>
+    <script src="onload-animation/script.js"></script>
+
+
     <script src="script.js" defer></script>
 </body>
 </html>

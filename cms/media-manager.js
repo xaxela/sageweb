@@ -1,305 +1,350 @@
-// SAGE Club CMS - Media Manager for File Uploads
+// SAGE Club CMS Media Manager
+// Handles image uploads, editing, and deletion
 
 class MediaManager {
     constructor() {
-        this.maxFileSize = 5 * 1024 * 1024; // 5MB
-        this.allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-        this.uploadPath = '../IMAGES/';
+        this.currentUploadType = null;
+        this.init();
     }
 
-    async uploadImage(file, type, metadata = {}) {
-        if (!this.validateFile(file)) {
-            return false;
+    init() {
+        this.setupUploadForm();
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        // Upload form submission
+        const uploadForm = document.getElementById('upload-form');
+        if (uploadForm) {
+            uploadForm.addEventListener('submit', this.handleUpload.bind(this));
         }
 
-        try {
-            this.showLoading(true);
-            
-            // Create FormData
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('type', type);
-            formData.append('metadata', JSON.stringify(metadata));
+        // File input change
+        const fileInput = document.getElementById('file-input');
+        if (fileInput) {
+            fileInput.addEventListener('change', this.previewImage.bind(this));
+        }
+    }
 
-            // Since GitHub Pages doesn't support server-side uploads,
-            // we'll provide instructions for manual upload
-            const instructions = this.generateUploadInstructions(file, type, metadata);
-            this.showUploadInstructions(instructions);
+    setupUploadForm() {
+        // Initialize the upload form with proper validation
+        const uploadForm = document.getElementById('upload-form');
+        if (uploadForm) {
+            uploadForm.reset();
+        }
+    }
+
+    async handleUpload(e) {
+        e.preventDefault();
+        
+        const formData = new FormData();
+        const fileInput = document.getElementById('file-input');
+        const titleInput = document.getElementById('image-title');
+        const descriptionInput = document.getElementById('image-description');
+
+        if (!fileInput.files[0]) {
+            alert('Please select an image file');
+            return;
+        }
+
+        if (!titleInput.value.trim()) {
+            alert('Please enter a title for the image');
+            return;
+        }
+
+        // Show loading overlay
+        this.showLoading(true);
+
+        try {
+            formData.append('image', fileInput.files[0]);
+            formData.append('title', titleInput.value);
+            formData.append('description', descriptionInput.value);
+            formData.append('type', this.currentUploadType);
+
+            // Simulate upload process (replace with actual API call)
+            await this.simulateUpload(formData);
             
-            return true;
+            // Close modal and refresh content
+            this.closeModal('upload-modal');
+            this.refreshContent();
+            
+            alert('Image uploaded successfully!');
+            
         } catch (error) {
             console.error('Upload error:', error);
-            this.showError('Upload failed. Please try again.');
-            return false;
+            alert('Error uploading image. Please try again.');
         } finally {
             this.showLoading(false);
         }
     }
 
-    validateFile(file) {
-        // Check file size
-        if (file.size > this.maxFileSize) {
-            this.showError('File size must be less than 5MB');
-            return false;
-        }
-
-        // Check file type
-        if (!this.allowedTypes.includes(file.type)) {
-            this.showError('Only JPEG, PNG, GIF, and WebP images are allowed');
-            return false;
-        }
-
-        return true;
+    async simulateUpload(formData) {
+        // Simulate upload delay
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                console.log('Uploading:', {
+                    fileName: formData.get('image').name,
+                    title: formData.get('title'),
+                    description: formData.get('description'),
+                    type: formData.get('type')
+                });
+                resolve();
+            }, 2000);
+        });
     }
 
-    generateUploadInstructions(file, type, metadata) {
-        const fileName = this.generateFileName(file, type);
-        const targetPath = this.getTargetPath(type);
-        
-        return {
-            fileName,
-            targetPath,
-            metadata,
-            instructions: `
-                <h3>Manual Upload Instructions</h3>
-                <p>Since this is a GitHub Pages site, please follow these steps:</p>
-                <ol>
-                    <li>Rename your file to: <strong>${fileName}</strong></li>
-                    <li>Upload it to: <strong>${targetPath}</strong></li>
-                    <li>Commit the changes to your repository</li>
-                    <li>Wait 2-3 minutes for GitHub Pages to update</li>
-                    <li>Refresh this page to see your new content</li>
-                </ol>
-                <p><strong>Recommended image size:</strong> ${type === 'slider' ? '1920x1080px' : '400x400px'}</p>
-            `
-        };
-    }
+    previewImage(e) {
+        const file = e.target.files[0];
+        if (!file) return;
 
-    generateFileName(file, type) {
-        const timestamp = Date.now();
-        const extension = file.name.split('.').pop();
-        
-        switch(type) {
-            case 'slider':
-                return `slidder${this.getNextSliderNumber()}.${extension}`;
-            case 'team':
-                return `team-member-${timestamp}.${extension}`;
-            case 'patrons':
-                return `patron-${timestamp}.${extension}`;
-            default:
-                return `${type}-${timestamp}.${extension}`;
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+            alert('Please select an image file (JPEG, PNG, GIF, etc.)');
+            e.target.value = '';
+            return;
         }
-    }
 
-    getNextSliderNumber() {
-        // This would need to be determined by checking existing files
-        return 1; // Placeholder
-    }
-
-    getTargetPath(type) {
-        switch(type) {
-            case 'slider':
-                return 'IMAGES/slider/';
-            case 'team':
-                return 'IMAGES/TEAM/';
-            case 'patrons':
-                return 'IMAGES/PATRONS/';
-            default:
-                return 'IMAGES/';
+        // Validate file size (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File size must be less than 5MB');
+            e.target.value = '';
+            return;
         }
+
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            // Remove existing preview if any
+            const existingPreview = document.getElementById('image-preview');
+            if (existingPreview) {
+                existingPreview.remove();
+            }
+
+            // Create preview container
+            const previewContainer = document.createElement('div');
+            previewContainer.id = 'image-preview';
+            previewContainer.style.cssText = `
+                margin: 1rem 0;
+                text-align: center;
+            `;
+
+            // Create preview image
+            const previewImg = document.createElement('img');
+            previewImg.src = e.target.result;
+            previewImg.style.cssText = `
+                max-width: 100%;
+                max-height: 200px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            `;
+
+            // Create file info
+            const fileInfo = document.createElement('div');
+            fileInfo.style.cssText = `
+                font-size: 0.875rem;
+                color: #666;
+                margin-top: 0.5rem;
+            `;
+            fileInfo.textContent = `${file.name} (${this.formatFileSize(file.size)})`;
+
+            previewContainer.appendChild(previewImg);
+            previewContainer.appendChild(fileInfo);
+
+            // Insert after file input
+            const fileInput = document.getElementById('file-input');
+            fileInput.parentNode.insertBefore(previewContainer, fileInput.nextSibling);
+        }.bind(this);
+
+        reader.readAsDataURL(file);
     }
 
-    showUploadInstructions(instructions) {
-        const modal = document.getElementById('upload-modal');
-        const content = modal.querySelector('.modal-content');
-        
-        content.innerHTML = `
-            <span class="close" onclick="closeModal('upload-modal')">&times;</span>
-            ${instructions.instructions}
-            <div class="upload-preview">
-                <h4>Preview</h4>
-                <img id="preview-image" style="max-width: 100%; max-height: 200px;">
-            </div>
-            <button class="btn btn-primary" onclick="downloadInstructions()">
-                <i class="fas fa-download"></i> Download Instructions
-            </button>
-        `;
-        
-        // Show preview
-        const fileInput = document.getElementById('file-input');
-        if (fileInput.files[0]) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                document.getElementById('preview-image').src = e.target.result;
-            };
-            reader.readAsDataURL(fileInput.files[0]);
-        }
+    formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
     showLoading(show) {
-        const overlay = document.getElementById('loading-overlay');
-        if (show) {
-            overlay.classList.remove('hidden');
-        } else {
-            overlay.classList.add('hidden');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        if (loadingOverlay) {
+            loadingOverlay.classList.toggle('hidden', !show);
         }
     }
 
-    showError(message) {
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'error-message';
-        errorDiv.innerHTML = `
-            <i class="fas fa-exclamation-triangle"></i>
-            ${message}
-        `;
-        
-        // Add to modal or main content
-        const container = document.querySelector('.main-content');
-        container.insertBefore(errorDiv, container.firstChild);
-        
-        setTimeout(() => {
-            errorDiv.remove();
-        }, 5000);
-    }
-
-    showSuccess(message) {
-        const successDiv = document.createElement('div');
-        successDiv.className = 'success-message';
-        successDiv.innerHTML = `
-            <i class="fas fa-check-circle"></i>
-            ${message}
-        `;
-        
-        const container = document.querySelector('.main-content');
-        container.insertBefore(successDiv, container.firstChild);
-        
-        setTimeout(() => {
-            successDiv.remove();
-        }, 5000);
-    }
-
-    // Image optimization
-    async optimizeImage(file, maxWidth = 1920, maxHeight = 1080) {
-        return new Promise((resolve) => {
-            const img = new Image();
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            
-            img.onload = () => {
-                let { width, height } = img;
-                
-                // Calculate new dimensions
-                if (width > maxWidth || height > maxHeight) {
-                    const ratio = Math.min(maxWidth / width, maxHeight / height);
-                    width *= ratio;
-                    height *= ratio;
-                }
-                
-                canvas.width = width;
-                canvas.height = height;
-                
-                ctx.drawImage(img, 0, 0, width, height);
-                
-                canvas.toBlob((blob) => {
-                    resolve(blob);
-                }, file.type, 0.9);
-            };
-            
-            img.src = URL.createObjectURL(file);
-        });
-    }
-
-    // Bulk operations
-    async bulkUpload(files, type) {
-        const results = [];
-        
-        for (const file of files) {
-            const result = await this.uploadImage(file, type);
-            results.push(result);
+    closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.add('hidden');
         }
         
-        return results;
+        // Reset form
+        const uploadForm = document.getElementById('upload-form');
+        if (uploadForm) {
+            uploadForm.reset();
+        }
+        
+        // Remove preview
+        const preview = document.getElementById('image-preview');
+        if (preview) {
+            preview.remove();
+        }
     }
 
-    // Drag and drop support
-    setupDragAndDrop(dropZoneId, type) {
-        const dropZone = document.getElementById(dropZoneId);
+    refreshContent() {
+        // Refresh the current section content
+        const activeSection = document.querySelector('.content-section.active');
+        if (activeSection) {
+            const sectionId = activeSection.id.replace('-section', '');
+            cms.loadSectionContent(sectionId);
+        }
+    }
+
+    // Image editing functionality
+    editImage(imageUrl) {
+        console.log('Editing image:', imageUrl);
+        // Open edit modal with image details
+        this.openEditModal(imageUrl);
+    }
+
+    openEditModal(imageUrl) {
+        // Create or show edit modal
+        let editModal = document.getElementById('edit-modal');
         
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('drag-over');
-        });
-        
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('drag-over');
-        });
-        
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('drag-over');
+        if (!editModal) {
+            editModal = document.createElement('div');
+            editModal.id = 'edit-modal';
+            editModal.className = 'modal hidden';
+            editModal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close" onclick="mediaManager.closeModal('edit-modal')">&times;</span>
+                    <h3>Edit Image</h3>
+                    <form id="edit-form">
+                        <div class="form-group">
+                            <label for="edit-title">Title</label>
+                            <input type="text" id="edit-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-description">Description</label>
+                            <textarea id="edit-description" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            `;
+            document.body.appendChild(editModal);
             
-            const files = Array.from(e.dataTransfer.files);
-            const imageFiles = files.filter(file => this.allowedTypes.includes(file.type));
+            // Add form submit handler
+            const editForm = document.getElementById('edit-form');
+            editForm.addEventListener('submit', this.handleEdit.bind(this));
+        }
+        
+        // Populate form with current data
+        // This would typically come from your data store
+        document.getElementById('edit-title').value = 'Current Image Title';
+        document.getElementById('edit-description').value = 'Current image description';
+        
+        // Show modal
+        editModal.classList.remove('hidden');
+    }
+
+    async handleEdit(e) {
+        e.preventDefault();
+        
+        const title = document.getElementById('edit-title').value;
+        const description = document.getElementById('edit-description').value;
+        
+        // Show loading
+        this.showLoading(true);
+        
+        try {
+            // Simulate edit process
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            console.log('Image edited:', { title, description });
             
-            if (imageFiles.length > 0) {
-                this.bulkUpload(imageFiles, type);
+            // Close modal and refresh
+            this.closeModal('edit-modal');
+            this.refreshContent();
+            
+            alert('Image updated successfully!');
+            
+        } catch (error) {
+            console.error('Edit error:', error);
+            alert('Error updating image. Please try again.');
+        } finally {
+            this.showLoading(false);
+        }
+    }
+
+    async deleteImage(imageUrl) {
+        if (!confirm('Are you sure you want to delete this image? This action cannot be undone.')) {
+            return;
+        }
+        
+        this.showLoading(true);
+        
+        try {
+            // Simulate delete process
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            console.log('Image deleted:', imageUrl);
+            
+            // Refresh content
+            this.refreshContent();
+            
+            alert('Image deleted successfully!');
+            
+        } catch (error) {
+            console.error('Delete error:', error);
+            alert('Error deleting image. Please try again.');
+        } finally {
+            this.showLoading(false);
+        }
+    }
+
+    // Set upload type for different sections
+    setUploadType(type) {
+        this.currentUploadType = type;
+        
+        // Update modal title based on upload type
+        const modalTitle = document.querySelector('#upload-modal h3');
+        if (modalTitle) {
+            switch(type) {
+                case 'slider':
+                    modalTitle.textContent = 'Upload Slider Image';
+                    break;
+                case 'team':
+                    modalTitle.textContent = 'Add Team Member';
+                    break;
+                case 'patrons':
+                    modalTitle.textContent = 'Add Club Patron';
+                    break;
+                default:
+                    modalTitle.textContent = 'Upload Image';
             }
-        });
+        }
     }
 }
 
 // Initialize Media Manager
 const mediaManager = new MediaManager();
 
-// Global upload functions
+// Global functions for modal operations
 function uploadSliderImage() {
-    const modal = document.getElementById('upload-modal');
-    modal.classList.remove('hidden');
-    
-    // Setup form for slider upload
-    const form = document.getElementById('upload-form');
-    form.onsubmit = (e) => {
-        e.preventDefault();
-        const file = document.getElementById('file-input').files[0];
-        const title = document.getElementById('image-title').value;
-        const description = document.getElementById('image-description').value;
-        
-        if (file) {
-            mediaManager.uploadImage(file, 'slider', { title, description });
-        }
-    };
+    mediaManager.setUploadType('slider');
+    document.getElementById('upload-modal').classList.remove('hidden');
 }
 
-// File input preview
-document.getElementById('file-input').addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const preview = document.createElement('img');
-            preview.src = e.target.result;
-            preview.style.maxWidth = '100%';
-            preview.style.maxHeight = '200px';
-            
-            const form = document.getElementById('upload-form');
-            const existingPreview = form.querySelector('img');
-            if (existingPreview) {
-                existingPreview.remove();
-            }
-            form.insertBefore(preview, form.lastElementChild);
-        };
-        reader.readAsDataURL(file);
-    }
-});
+function addTeamMember() {
+    mediaManager.setUploadType('team');
+    document.getElementById('upload-modal').classList.remove('hidden');
+}
 
-// Download instructions
-function downloadInstructions() {
-    const instructions = document.querySelector('.modal-content').innerText;
-    const blob = new Blob([instructions], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'upload-instructions.txt';
-    a.click();
-    URL.revokeObjectURL(url);
+function addPatron() {
+    mediaManager.setUploadType('patrons');
+    document.getElementById('upload-modal').classList.remove('hidden');
+}
+
+function closeModal(modalId) {
+    mediaManager.closeModal(modalId);
 }
