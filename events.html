@@ -10,8 +10,9 @@
     <link rel="shortcut icon" type="image/jpeg" href="IMAGES/LOGO/logo.jpeg">
     <meta name="description" content="Explore SAGE's events and activities focused on promoting sustainability and environmental awareness. Join us in our workshops, training sessions, and community engagement initiatives.">
     <meta name="keywords" content="SAGE, sustainability, environmental awareness, workshops, training, community engagement, eco-friendly events, tree planting, clean-up campaigns, renewable energy, climate awareness">
-    <meta name="author" content="SAGE Team">    
+    <meta name="author" content="SAGE Team">
     <link rel="stylesheet" href="events-styles.css">
+    <link rel="stylesheet" href="poster-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 </head>
@@ -80,50 +81,129 @@
                 <div class="container">
                     <h2 id="poster-gallery-heading">Event Posters</h2>
                     <p class="section-intro"> <b>Browse through our collection of event posters and promotional materials</b></p>
-                    
+
+                    <!-- Search Input -->
+                    <input type="text" id="poster-search" placeholder="Search posters by keywords..." aria-label="Search posters">
+
                     <div class="posters-grid">
-                        <div class="poster-card">
-                            <img src="IMAGES/POSTERS/poster1.jpeg" alt="SAGE Environmental Workshop Poster" loading="lazy">
+                        <div class="poster-card featured-poster">
+                            <img src="IMAGES/POSTERS/poster2.jpg" alt="SAGE Poster - Switch Off the Lights" loading="lazy">
                             <div class="poster-info">
-                                <h4>Environmental Workshop</h4>
-                                <p>Sustainable Living Practices</p>
+                                <h3 class="poster-heading">Switch Off the Fridge whwn not in use</h3>
+                                <p>This poster encourages responsible energy use by reminding users to switch off the Fridge when not in use.</p>
+                                <div class="featured-badge">
+                                    <span class="badge">Main Event</span>
+                                </div>
+                                <!-- Download and Share Buttons -->
+                                <div class="poster-actions">
+                                    <button class="download-btn" aria-label="Download Switch Off the Fridge poster" onclick="downloadImage('IMAGES/POSTERS/poster2.jpg', 'Switch_Off_the_Fridge.jpg')">
+                                        <i class="fas fa-download"></i> Download
+                                    </button>
+                                    <button class="share-btn facebook" aria-label="Share on Facebook" onclick="shareOnFacebook('IMAGES/POSTERS/poster2.jpg', 'Switch Off the Fridge whwn not in use')">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </button>
+                                    <button class="share-btn twitter" aria-label="Share on Twitter" onclick="shareOnTwitter('IMAGES/POSTERS/poster2.jpg', 'Switch Off the Fridge whwn not in use')">
+                                        <i class="fab fa-twitter"></i>
+                                    </button>
+                                    <button class="share-btn whatsapp" aria-label="Share on WhatsApp" onclick="shareOnWhatsApp('IMAGES/POSTERS/poster2.jpg', 'Switch Off the Fridge whwn not in use')">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </button>
+                                    <button class="share-btn linkedin" aria-label="Share on LinkedIn" onclick="shareOnLinkedIn('IMAGES/POSTERS/poster2.jpg', 'Switch Off the Fridge whwn not in use')">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        
+
                         <div class="poster-card">
-                            <img src="IMAGES/POSTERS/poster2.jpeg" alt="SAGE Tree Planting Event Poster" loading="lazy">
+                            <img src="IMAGES/POSTERS/poster3.jpg" alt="SAGE Poster - Please Turn Off When Not in Use" loading="lazy">
                             <div class="poster-info">
-                                <h4>Tree Planting Day</h4>
-                                <p>Community Reforestation Initiative</p>
+                                <h4>Please switch Off Sockets</h4>
+                                <p>A general yet impactful message promoting energy conservation. This minimalist poster from SAGE reinforces the habit of turning off any unused appliances or electronics.</p>
+                                <!-- Download and Share Buttons -->
+                                <div class="poster-actions">
+                                    <button class="download-btn" aria-label="Download Please switch Off Sockets poster" onclick="downloadImage('IMAGES/POSTERS/poster3.jpg', 'Please_Switch_Off_Sockets.jpg')">
+                                        <i class="fas fa-download"></i> Download
+                                    </button>
+                                    <button class="share-btn facebook" aria-label="Share on Facebook" onclick="shareOnFacebook('IMAGES/POSTERS/poster3.jpg', 'Please switch Off Sockets')">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </button>
+                                    <button class="share-btn twitter" aria-label="Share on Twitter" onclick="shareOnTwitter('IMAGES/POSTERS/poster3.jpg', 'Please switch Off Sockets')">
+                                        <i class="fab fa-twitter"></i>
+                                    </button>
+                                    <button class="share-btn whatsapp" aria-label="Share on WhatsApp" onclick="shareOnWhatsApp('IMAGES/POSTERS/poster3.jpg', 'Please switch Off Sockets')">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </button>
+                                    <button class="share-btn linkedin" aria-label="Share on LinkedIn" onclick="shareOnLinkedIn('IMAGES/POSTERS/poster3.jpg', 'Please switch Off Sockets')">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        
+
                         <div class="poster-card">
-                            <img src="IMAGES/POSTERS/poster3.jpeg" alt="SAGE Clean-up Campaign Poster" loading="lazy">
+                            <img src="IMAGES/POSTERS/poster4.jpg" alt="SAGE Poster - Switch Off the Fridge" loading="lazy">
                             <div class="poster-info">
-                                <h4>Clean-up Campaign</h4>
-                                <p>Beach & Park Restoration</p>
+                                <h4>Switch Off the lights when not in use</h4>
+                                <p>This version targets unnecessary energy consumption by reminding users to switch off the lights when it's not needed, such as in workstations , shared offices.</p>
+                                <!-- Download and Share Buttons -->
+                                <div class="poster-actions">
+                                    <button class="download-btn" aria-label="Download Switch Off the lights poster" onclick="downloadImage('IMAGES/POSTERS/poster4.jpg', 'Switch_Off_the_Lights.jpg')">
+                                        <i class="fas fa-download"></i> Download
+                                    </button>
+                                    <button class="share-btn facebook" aria-label="Share on Facebook" onclick="shareOnFacebook('IMAGES/POSTERS/poster4.jpg', 'Switch Off the lights when not in use')">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </button>
+                                    <button class="share-btn twitter" aria-label="Share on Twitter" onclick="shareOnTwitter('IMAGES/POSTERS/poster4.jpg', 'Switch Off the lights when not in use')">
+                                        <i class="fab fa-twitter"></i>
+                                    </button>
+                                    <button class="share-btn whatsapp" aria-label="Share on WhatsApp" onclick="shareOnWhatsApp('IMAGES/POSTERS/poster4.jpg', 'Switch Off the lights when not in use')">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </button>
+                                    <button class="share-btn linkedin" aria-label="Share on LinkedIn" onclick="shareOnLinkedIn('IMAGES/POSTERS/poster4.jpg', 'Switch Off the lights when not in use')">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        
+
                         <div class="poster-card">
-                            <img src="IMAGES/POSTERS/poster4.jpeg" alt="SAGE Renewable Energy Training Poster" loading="lazy">
+                            <img src="IMAGES/POSTERS/poster7.jpg" alt="SAGE Poster - Switch Off the Socket" loading="lazy">
                             <div class="poster-info">
-                                <h4>Renewable Energy Training</h4>
-                                <p>Solar & Wind Power Basics</p>
-                            </div>
-                        </div>
-                        
-                        <div class="poster-card">
-                            <img src="IMAGES/POSTERS/poster6.jpeg" alt="SAGE Climate Awareness Campaign Poster" loading="lazy">
-                            <div class="poster-info">
-                                <h4>Climate Awareness</h4>
-                                <p>Community Action for Change</p>
+                                <h4>Switch Off the dispensers when not in use</h4>
+                                <p>dispensers often consume standby power . This poster encourages users to unplug or switch off the water dispensers when not in use.</p>
+                                <!-- Download and Share Buttons -->
+                                <div class="poster-actions">
+                                    <button class="download-btn" aria-label="Download Switch Off the dispensers poster" onclick="downloadImage('IMAGES/POSTERS/poster7.jpg', 'Switch_Off_the_Dispensers.jpg')">
+                                        <i class="fas fa-download"></i> Download
+                                    </button>
+                                    <button class="share-btn facebook" aria-label="Share on Facebook" onclick="shareOnFacebook('IMAGES/POSTERS/poster7.jpg', 'Switch Off the dispensers when not in use')">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </button>
+                                    <button class="share-btn twitter" aria-label="Share on Twitter" onclick="shareOnTwitter('IMAGES/POSTERS/poster7.jpg', 'Switch Off the dispensers when not in use')">
+                                        <i class="fab fa-twitter"></i>
+                                    </button>
+                                    <button class="share-btn whatsapp" aria-label="Share on WhatsApp" onclick="shareOnWhatsApp('IMAGES/POSTERS/poster7.jpg', 'Switch Off the dispensers when not in use')">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </button>
+                                    <button class="share-btn linkedin" aria-label="Share on LinkedIn" onclick="shareOnLinkedIn('IMAGES/POSTERS/poster7.jpg', 'Switch Off the dispensers when not in use')">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+
+            <!-- Lightbox Modal -->
+            <div id="poster-lightbox" class="lightbox" style="display:none;">
+                <button class="lightbox-close" aria-label="Close">&times;</button>
+                <button class="lightbox-prev" aria-label="Previous image">&#10094;</button>
+                <img id="lightbox-image" src="" alt="" />
+                <button class="lightbox-next" aria-label="Next image">&#10095;</button>
+                <div id="lightbox-caption"></div>
+            </div>
 
             <!-- Workshops and Training -->
             <div class="event-category">
@@ -276,6 +356,7 @@ like-minded individuals. A platform for open dialogue and collaborative problem-
     </div>
 </footer>
 <script src="event.js"></script>
+<script src="poster-gallery.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script> -->

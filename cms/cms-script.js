@@ -108,7 +108,7 @@ async function getImagesFromPath(path) {
     // Since GitHub Pages doesn't allow server-side scanning, we'll use a predefined list
     // and check if images exist
     
-    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'tiff'];
     const images = [];
     
     // Common image names to check
@@ -117,56 +117,32 @@ async function getImagesFromPath(path) {
     // Try to load images based on existing structure
     const baseUrl = window.location.origin + window.location.pathname.replace('/cms/', '/');
     
-    // Check for slider images
-    if (path.includes('slider')) {
-        for (let i = 1; i <= 10; i++) {
-            const imageName = `slidder${i}.jpeg`;
-            const imageUrl = baseUrl + 'IMAGES/slider/' + imageName;
-            if (await imageExists(imageUrl)) {
-                images.push({
-                    url: imageUrl,
-                    name: `Slider ${i}`,
-                    description: `Slider image ${i}`
-                });
-            }
-        }
-    }
-    
-    // Check for team images
-    if (path.includes('TEAM')) {
-        const teamMembers = [
-            'president.jpg', 'vice-president.jpg', 'secretary.jpg', 'treasurer.jpg',
-            'project-coordinator.jpg', 'publicity-officer.jpg', 'it-support.jpg'
-        ];
+    // Enhanced: Scan directory for all images with supported extensions
+    async function getImagesFromDirectory(path) {
+        const images = [];
+        const supportedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'tiff'];
+        const baseUrl = window.location.origin + window.location.pathname.replace('/cms/', '/');
         
-        for (const member of teamMembers) {
-            const imageUrl = baseUrl + 'IMAGES/TEAM/' + member;
-            if (await imageExists(imageUrl)) {
-                images.push({
-                    url: imageUrl,
-                    name: member.replace('.jpg', '').replace('-', ' '),
-                    description: `Team member: ${member.replace('.jpg', '').replace('-', ' ')}`
-                });
+        // Since no server-side directory listing, simulate by checking common image names or use a manifest file
+        // For demo, check for images named image1, image2,... image20 with all extensions
+        for (let i = 1; i <= 20; i++) {
+            for (const ext of supportedExtensions) {
+                const imageName = `image${i}.${ext}`;
+                const imageUrl = baseUrl + path + imageName;
+                if (await imageExists(imageUrl)) {
+                    images.push({
+                        url: imageUrl,
+                        name: `Image ${i}`,
+                        description: `Image ${i} with extension ${ext}`
+                    });
+                }
             }
         }
+        return images;
     }
     
-    // Check for patrons
-    if (path.includes('PATRONS')) {
-        const patrons = ['patron1.jpg', 'patron2.jpg'];
-        for (const patron of patrons) {
-            const imageUrl = baseUrl + 'IMAGES/TEAM/' + patron; // Using TEAM folder for patrons
-            if (await imageExists(imageUrl)) {
-                images.push({
-                    url: imageUrl,
-                    name: patron.replace('.jpg', ''),
-                    description: `Club patron: ${patron.replace('.jpg', '')}`
-                });
-            }
-        }
-    }
-    
-    return images;
+    // Use enhanced function for all image loading
+    return await getImagesFromDirectory(path);
 }
 
 async function imageExists(url) {

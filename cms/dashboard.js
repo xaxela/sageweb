@@ -156,57 +156,82 @@ class CMSDashboard {
     async getImagesFromPath(path) {
         const images = [];
         const baseUrl = window.location.origin + window.location.pathname.replace('/cms/', '/');
-        
-        if (path.includes('slider')) {
-            for (let i = 1; i <= 10; i++) {
-                const imageName = `slidder${i}.jpeg`;
-                const imageUrl = baseUrl + 'IMAGES/slider/' + imageName;
-                if (await this.imageExists(imageUrl)) {
-                    images.push({
-                        url: imageUrl,
-                        name: `Slider ${i}`,
-                        description: `Slider image ${i}`,
-                        type: 'slider'
-                    });
+        const supportedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'tiff'];
+
+        // Enhanced: Scan directory for all images with supported extensions
+        async function getImagesFromDirectory(path) {
+            const images = [];
+
+            // Check for images named image1, image2,... image20 with all extensions
+            for (let i = 1; i <= 20; i++) {
+                for (const ext of supportedExtensions) {
+                    const imageName = `image${i}.${ext}`;
+                    const imageUrl = baseUrl + path + imageName;
+                    if (await this.imageExists(imageUrl)) {
+                        images.push({
+                            url: imageUrl,
+                            name: `Image ${i}`,
+                            description: `Image ${i} with extension ${ext}`,
+                            type: path.includes('slider') ? 'slider' : path.includes('TEAM') ? 'team' : 'patrons'
+                        });
+                    }
                 }
             }
-        }
-        
-        if (path.includes('TEAM')) {
-            const teamMembers = [
-                'president.jpg', 'vice-president.jpg', 'secretary.jpg', 'treasurer.jpg',
-                'project-coordinator.jpg', 'publicity-officer.jpg', 'it-support.jpg'
-            ];
-            
-            for (const member of teamMembers) {
-                const imageUrl = baseUrl + 'IMAGES/TEAM/' + member;
-                if (await this.imageExists(imageUrl)) {
-                    images.push({
-                        url: imageUrl,
-                        name: member.replace('.jpg', '').replace('-', ' '),
-                        description: `Team member: ${member.replace('.jpg', '').replace('-', ' ')}`,
-                        type: 'team'
-                    });
+
+            // Also check for existing hardcoded names for backward compatibility
+            if (path.includes('slider')) {
+                for (let i = 1; i <= 10; i++) {
+                    const imageName = `slidder${i}.jpeg`;
+                    const imageUrl = baseUrl + 'IMAGES/slider/' + imageName;
+                    if (await this.imageExists(imageUrl)) {
+                        images.push({
+                            url: imageUrl,
+                            name: `Slider ${i}`,
+                            description: `Slider image ${i}`,
+                            type: 'slider'
+                        });
+                    }
                 }
             }
-        }
-        
-        if (path.includes('PATRONS')) {
-            const patrons = ['patron1.jpg', 'patron2.jpg'];
-            for (const patron of patrons) {
-                const imageUrl = baseUrl + 'IMAGES/TEAM/' + patron;
-                if (await this.imageExists(imageUrl)) {
-                    images.push({
-                        url: imageUrl,
-                        name: patron.replace('.jpg', ''),
-                        description: `Club patron: ${patron.replace('.jpg', '')}`,
-                        type: 'patrons'
-                    });
+
+            if (path.includes('TEAM')) {
+                const teamMembers = [
+                    'president.jpg', 'vice-president.jpg', 'secretary.jpg', 'treasurer.jpg',
+                    'project-coordinator.jpg', 'publicity-officer.jpg', 'it-support.jpg'
+                ];
+
+                for (const member of teamMembers) {
+                    const imageUrl = baseUrl + 'IMAGES/TEAM/' + member;
+                    if (await this.imageExists(imageUrl)) {
+                        images.push({
+                            url: imageUrl,
+                            name: member.replace('.jpg', '').replace('-', ' '),
+                            description: `Team member: ${member.replace('.jpg', '').replace('-', ' ')}`,
+                            type: 'team'
+                        });
+                    }
                 }
             }
+
+            if (path.includes('PATRONS')) {
+                const patrons = ['patron1.jpg', 'patron2.jpg'];
+                for (const patron of patrons) {
+                    const imageUrl = baseUrl + 'IMAGES/TEAM/' + patron;
+                    if (await this.imageExists(imageUrl)) {
+                        images.push({
+                            url: imageUrl,
+                            name: patron.replace('.jpg', ''),
+                            description: `Club patron: ${patron.replace('.jpg', '')}`,
+                            type: 'patrons'
+                        });
+                    }
+                }
+            }
+
+            return images;
         }
-        
-        return images;
+
+        return await getImagesFromDirectory.call(this, path);
     }
 
     async imageExists(url) {

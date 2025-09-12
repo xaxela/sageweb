@@ -97,9 +97,18 @@ class MediaManager {
         const file = e.target.files[0];
         if (!file) return;
 
-        // Validate file type
-        if (!file.type.startsWith('image/')) {
-            alert('Please select an image file (JPEG, PNG, GIF, etc.)');
+        // Validate file type - support all common image formats
+        const supportedTypes = [
+            'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp',
+            'image/svg+xml', 'image/bmp', 'image/tiff'
+        ];
+        const supportedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.bmp', '.tiff'];
+
+        const isValidType = supportedTypes.includes(file.type) ||
+                           supportedExtensions.some(ext => file.name.toLowerCase().endsWith(ext));
+
+        if (!isValidType) {
+            alert('Please select a supported image file (JPEG, PNG, GIF, WebP, SVG, BMP, TIFF)');
             e.target.value = '';
             return;
         }

@@ -104,9 +104,20 @@
                     <h1>SAGE</h1>
                     <h2>Sustainable Action for Green Education</h2>
                     <p>Leading the charge in environmental conservation and sustainable education</p>
-                    <button class="cta-btn" onclick="sageApp.scrollToSection('contact')" aria-label="Get involved with SAGE">
-                        Get Involved
-                    </button>
+                    <div class="hero-actions">
+                        <button class="cta-btn primary" onclick="sageApp.scrollToSection('contact')" aria-label="Get involved with SAGE">
+                            Get Involved
+                        </button>
+                        <button class="cta-btn secondary" onclick="sageApp.scrollToSection('what-we-do')" aria-label="Learn about our programs">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+                <div class="scroll-indicator" aria-hidden="true">
+                    <span class="scroll-text">Scroll to explore</span>
+                    <div class="scroll-mouse">
+                        <div class="scroll-wheel"></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -283,14 +294,14 @@
                     <h3>Club Patrons</h3>
                     <div class="founders-grid">
                         <article class="founder">
-                            <img src="IMAGES/TEAM/patron1.jpg" alt="Dr. Eunice Marete, Club Patron">
+                            <img src="IMAGES/TEAM/patron1.jpg" alt="Dr. Eunice Marete, Club Patron" width="150" height="150">
                             <h4>Dr. Eunice Marete</h4>
                             <p class="role">Club Patron</p>
                             <p>Provides guidance and ensures alignment with club policies.</p>
                         </article>
                         
                         <article class="founder">
-                            <img src="IMAGES/TEAM/patron2.jpg" alt="Ms. Faith Marete, Club Patron">
+                            <img src="IMAGES/TEAM/patron2.jpg" alt="Ms. Faith Marete, Club Patron" width="150" height="150">
                             <h4>Ms. Faith Marete</h4>
                             <p class="role">Club Patron</p>
                             <p>Provides guidance and ensures alignment with club policies.</p>
@@ -345,6 +356,92 @@
                 </div>
             </div>
         </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section" aria-labelledby="newsletter-heading">
+            <div class="container">
+                <div class="newsletter-content">
+                    <h2 id="newsletter-heading">Stay Connected</h2>
+                    <p>Join our community and receive the latest updates on environmental initiatives, upcoming events, and sustainable living tips.</p>
+
+                    <form id="newsletterForm" class="newsletter-form" novalidate>
+                        <div class="newsletter-input-group">
+                            <input type="email" id="newsletterEmail" name="email" placeholder="Enter your email address" required aria-required="true">
+                            <button type="submit" class="newsletter-btn">
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                                Subscribe
+                            </button>
+                        </div>
+                        <span class="newsletter-error" aria-live="polite"></span>
+                        <div class="newsletter-success" id="newsletterMessage" role="status" aria-live="polite"></div>
+                    </form>
+
+                    <div class="newsletter-features">
+                        <div class="feature-item">
+                            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                            <span>Event Updates</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                            <span>Sustainability Tips</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-users" aria-hidden="true"></i>
+                            <span>Community News</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section
+        <section class="testimonials-section" aria-labelledby="testimonials-heading">
+            <div class="container">
+                <h2 id="testimonials-heading">What People Say</h2>
+                <p class="testimonials-intro">Hear from our community members, partners, and beneficiaries about their experience with SAGE.</p>
+
+                <div class="testimonials-grid">
+                    <article class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"SAGE has transformed how our school approaches environmental education. The workshops are engaging and the students are more conscious about their impact on the planet."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="IMAGES/TEAM/president.jpg" alt="Sarah Johnson" class="author-avatar">
+                            <div class="author-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>School Principal</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"Participating in SAGE's tree planting initiative was incredibly rewarding. It's amazing to see how one small action can contribute to a larger environmental impact."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="IMAGES/TEAM/deno.jpg" alt="Michael Chen" class="author-avatar">
+                            <div class="author-info">
+                                <h4>Michael Chen</h4>
+                                <p>Community Volunteer</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"The conservation projects led by SAGE have made a tangible difference in our local ecosystem. Their dedication to sustainable practices is truly inspiring."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="IMAGES/TEAM/lorna.jpg" alt="Dr. Emily Rodriguez" class="author-avatar">
+                            <div class="author-info">
+                                <h4>Dr. Emily Rodriguez</h4>
+                                <p>Environmental Scientist</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section> -->
 
         <!-- Contact Section -->
         <section id="contact" class="contact-section" aria-labelledby="contact-heading">
@@ -578,6 +675,7 @@
 
 
     <script src="script.js" defer></script>
+    <script src="newsletter.js" defer></script>
 </body>
 </html>
 
