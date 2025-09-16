@@ -36,6 +36,7 @@ class CMSDashboard {
         document.getElementById('github-owner').value = this.config.owner;
         document.getElementById('github-repo').value = this.config.repo;
         document.getElementById('github-branch').value = this.config.branch;
+        document.getElementById('github-token').value = cmsAuth.token || '';
     }
 
     setupNavigation() {
@@ -194,10 +195,12 @@ class CMSDashboard {
                 }
             }
 
+            // For team members and patrons, check the actual image names used in index.html
             if (path.includes('TEAM')) {
                 const teamMembers = [
-                    'president.jpg', 'vice-president.jpg', 'secretary.jpg', 'treasurer.jpg',
-                    'project-coordinator.jpg', 'publicity-officer.jpg', 'it-support.jpg'
+                    'president.jpg', 'deno.jpg', 'lorna.jpg', 'rose.jpg',
+                    'ken.jpg', 'brian.jpg', 'vini.jpg', 'nick.jpg',
+                    'DAN.png', 'alex.jpg'
                 ];
 
                 for (const member of teamMembers) {
@@ -205,8 +208,8 @@ class CMSDashboard {
                     if (await this.imageExists(imageUrl)) {
                         images.push({
                             url: imageUrl,
-                            name: member.replace('.jpg', '').replace('-', ' '),
-                            description: `Team member: ${member.replace('.jpg', '').replace('-', ' ')}`,
+                            name: member.replace('.jpg', '').replace('.png', '').replace('-', ' '),
+                            description: `Team member: ${member.replace('.jpg', '').replace('.png', '').replace('-', ' ')}`,
                             type: 'team'
                         });
                     }
@@ -361,13 +364,20 @@ class CMSDashboard {
         const owner = document.getElementById('github-owner').value;
         const repo = document.getElementById('github-repo').value;
         const branch = document.getElementById('github-branch').value;
-        
+        const token = document.getElementById('github-token').value;
+
         this.config.owner = owner;
         this.config.repo = repo;
         this.config.branch = branch;
-        
+
         localStorage.setItem('cms-config', JSON.stringify(this.config));
-        alert('Settings saved successfully!');
+
+        if (token) {
+            cmsAuth.setToken(token);
+            alert('Settings saved successfully! GitHub integration enabled.');
+        } else {
+            alert('Settings saved successfully! Note: GitHub token not provided - uploads will be simulated.');
+        }
     }
 }
 

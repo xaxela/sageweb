@@ -37,7 +37,6 @@ class MediaManager {
     async handleUpload(e) {
         e.preventDefault();
         
-        const formData = new FormData();
         const fileInput = document.getElementById('file-input');
         const titleInput = document.getElementById('image-title');
         const descriptionInput = document.getElementById('image-description');
@@ -56,13 +55,21 @@ class MediaManager {
         this.showLoading(true);
 
         try {
-            formData.append('image', fileInput.files[0]);
-            formData.append('title', titleInput.value);
-            formData.append('description', descriptionInput.value);
-            formData.append('type', this.currentUploadType);
+            if (!cmsAuth.isAuthenticated()) {
+                alert('GitHub token not set. Uploads will be simulated.');
+                await this.simulateUpload();
+            } else {
+                // Convert file to base64
+                const base64Content = await this.fileToBase64(fileInput.files[0]);
+                const fileName = fileInput.files[0].name;
+                const path = this.getUploadPath(fileName);
 
-            // Simulate upload process (replace with actual API call)
-            await this.simulateUpload(formData);
+                // Prepare commit message
+                const message = `Upload image ${fileName} via CMS`;
+
+                // Commit file to GitHub
+                await cmsAuth.uploadFile(path, base64Content, message);
+            }
             
             // Close modal and refresh content
             this.closeModal('upload-modal');
@@ -314,7 +321,7 @@ class MediaManager {
     // Set upload type for different sections
     setUploadType(type) {
         this.currentUploadType = type;
-        
+
         // Update modal title based on upload type
         const modalTitle = document.querySelector('#upload-modal h3');
         if (modalTitle) {
@@ -331,6 +338,34 @@ class MediaManager {
                 default:
                     modalTitle.textContent = 'Upload Image';
             }
+        }
+    }
+
+    // Helper method to convert file to base64
+    fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                // Remove the data:image/jpeg;base64, prefix
+                const base64 = reader.result.split(',')[1];
+                resolve(base64);
+            };
+            reader.onerror = error => reject(error);
+        });
+    }
+
+    // Get upload path based on upload type
+    getUploadPath(fileName) {
+        switch(this.currentUploadType) {
+            case 'slider':
+                return `IMAGES/slider/${fileName}`;
+            case 'team':
+                return `IMAGES/TEAM/${fileName}`;
+            case 'patrons':
+                return `IMAGES/TEAM/${fileName}`; // Patrons are also in TEAM folder
+            default:
+                return `IMAGES/${fileName}`;
         }
     }
 }

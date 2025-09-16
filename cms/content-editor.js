@@ -171,9 +171,8 @@ class ContentEditor {
             await this.saveUpdates();
             this.closeModal('update-modal');
             this.displayUpdates();
-            
+
             alert(`Update ${this.currentEditIndex !== null ? 'updated' : 'added'} successfully!`);
-            
         } catch (error) {
             console.error('Error saving update:', error);
             alert('Error saving update. Please try again.');
@@ -181,16 +180,33 @@ class ContentEditor {
     }
 
     async saveUpdates() {
-        // In a real implementation, this would save to a file or database
-        // For now, we'll use localStorage as a temporary solution
-        localStorage.setItem('sage-updates', JSON.stringify({
-            updates: this.updates,
-            lastUpdated: new Date().toISOString()
-        }));
+        if (!cmsAuth.isAuthenticated()) {
+            // Fallback to localStorage if no token
+            localStorage.setItem('sage-updates', JSON.stringify({
+                updates: this.updates,
+                lastUpdated: new Date().toISOString()
+            }));
+            return;
+        }
 
-        // Simulate API call delay
-        return new Promise(resolve => setTimeout(resolve, 500));
+        try {
+            // Prepare new content
+            const content = {
+                updates: this.updates,
+                lastUpdated: new Date().toISOString()
+            };
+
+            // Commit changes to GitHub using the updateJSONFile method
+            const message = this.currentEditIndex !== null ? 'Update announcement via CMS' : 'Add announcement via CMS';
+            await cmsAuth.updateJSONFile('UPDATES/updates.json', content, message);
+
+        } catch (error) {
+            console.error('GitHub update error:', error);
+            throw error;
+        }
     }
+
+
 
     editUpdate(index) {
         this.currentEditIndex = index;
