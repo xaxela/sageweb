@@ -185,5 +185,24 @@
     <script src="content-editor.js"></script>
     <script src="auth.js"></script>
     <script src="sw.js"></script>
+    <script>
+        // Expose saveSettings globally for inline onclick usage
+        window.saveSettings = function() {
+            cms.saveSettings();
+        };
+
+        // Unregister existing service workers on page load for debugging
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    for (let registration of registrations) {
+                        registration.unregister().then(() => {
+                            console.log('Service worker unregistered:', registration);
+                        });
+                    }
+                });
+            });
+        }
+    </script>
 </body>
 </html>

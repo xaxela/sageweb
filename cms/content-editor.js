@@ -42,6 +42,23 @@ class ContentEditor {
         this.displayUpdates();
     }
 
+    async saveUpdates() {
+        if (!cmsAuth.isAuthenticated()) {
+            alert('GitHub token not set. Updates will be simulated.');
+            console.log('Simulating save updates:', this.updates);
+            return;
+        }
+
+        try {
+            const updatesPath = 'UPDATES/updates.json';
+            await cmsAuth.updateJSONFile(updatesPath, { updates: this.updates }, 'Update announcements via CMS');
+            alert('Updates saved successfully to GitHub!');
+        } catch (error) {
+            console.error('Error saving updates:', error);
+            alert(`Error saving updates: ${error.message}`);
+        }
+    }
+
     displayUpdates() {
         const container = document.getElementById('updates-list');
         if (!container) return;

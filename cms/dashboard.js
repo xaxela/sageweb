@@ -2,7 +2,7 @@ class CMSDashboard {
     constructor() {
         this.config = {
             owner: 'xaxela',
-            repo: 'myweb',
+            repo: 'sageweb',
             branch: 'main',
             baseUrl: 'https://raw.githubusercontent.com'
         };
